@@ -1,7 +1,3 @@
-from views import View
-from models import Tournament
-
-
 """
 Bonjour !
 1 : Créer un tournoi
@@ -85,6 +81,8 @@ Quel rapport voulez-vous générer ?
 -> 1
 
 """
+from datetime import datetime
+import dateparser
 
 
 from models import Tournament, Player, Match
@@ -95,63 +93,36 @@ class Controller:
     """Le controleur
     """
 
-    @classmethod
-    def boot_menu(cls):
-        display_message = ("Que souhaitez-vous faire ?\n"
-                           "1 - Créer un tournoi\n"
-                           "2 - Charger un tournoi\n"
-                           "3 - Créer des joueurs\n"
-                           "4 - Voir les rapports\n"
-                           "q - Quitter\n> "
-                           )
-
-        selections = ["1", "2", "3", "4", "q"]
-
-        message_error = f"Veuiller entrer une valeur valide {
-            selections}"
-
-        while True:
-            View.display_boot_menu(display_message)
-            user_choice = View.user_input()
-
-            if user_choice in selections:
-                return user_choice
-            else:
-                print(message_error)
-                continue
-
-            if user_choice == 1:
-                pass
-
-            # # Charger un tournoi
-            # elif user_choice == "2":
-            #     cls.load_an_tournament()
-
-            # # Créer des joueurs
-            # elif user_choice == "3":
-            #     cls.get_player()
-
-            # # Voir les rapports
-            # elif user_choice == "4":
-            #     cls.generate_a_report_for_a_tournament()
-
-            # # Quitter
-            # else:
-            #     cls.quit()
-
     def __init__(self):
         """
         Initialisation du Controleur du tournoi.
         """
-    #     # instatnciation de la vue
-    #     self.view = View()
 
-        # Liste pour stocker les tournois
+    @classmethod
+    def boot_menu(cls):
 
-    #     # Liste pour stocker les joueurs du tournois
-    #     self.players = []
+        while True:
 
-    tournaments = []
+            user_choice = View.display_boot_menu()
+
+            if user_choice == "1":
+                cls.create_a_tournament()
+
+            # Charger un tournoi
+            elif user_choice == "2":
+                cls.load_an_tournament()
+
+            # Ajouter de(s) joueur(s) au club
+            elif user_choice == "3":
+                cls.get_player()
+
+            # Voir les rapports
+            elif user_choice == "4":
+                cls.generate_a_report_for_a_tournament()
+
+            # Quitter
+            elif user_choice == "q":
+                cls.quit()
 
     @classmethod
     def create_a_tournament(cls):
@@ -164,59 +135,88 @@ class Controller:
         tournamant_infos = View.request_tournament_infos()
         tournament = Tournament(*tournamant_infos)
         View.display_tournament(tournament)
-        cls.tournaments.append(tournament)
-        print(cls.tournaments)
-        # self.get_player()
+        Tournament.tournaments.append(tournament)
+        tournament.save_tournament()
+        cls.get_player_for_tournament()
         # self.create_round()
 
-    # LANCEMENT.
-
     @classmethod
-    def run(cls):
-        cls.boot_menu()
-
-    def get_player(self):
-        """Créer un joueur.
+    def get_player_for_tournament(cls):
+        """Saisie et Crée un joueur pour le tournoi.
 
         Returns:
-            Joueur: _description_
+            Joueur: retourne une instance de Joueur.
         """
-        player_data = self.view.ask_for_player_infos()
-        player = Player(**player_data)
-        self.view.display_player(player)
-        self.players.append(player)
+        number_of_players = View.ask_number_of_players()
+
+        for player in range(0, number_of_players):
+            player_data = View.ask_for_player_infos()
+            player = Player(*player_data)
+            View.display_player(player)
+            # player.save_player()
 
         return player
 
-    def create_round(self):
-        pass
-
-    def create_match(self):
-        """Créér un match.
+    @classmethod
+    def get_player(cls):
+        """Crée un joueur.
 
         Returns:
-            match: _description_
+            Joueur: retourne une instance joueur.
         """
-        match_data = self.view.get_match_infos()
-        # match = Match(**match_data)
-        self.view.display_match(match)
-        return match
+        number_of_players = View.ask_number_of_players()
 
-    def load_an_tournament(self):
+        for player in range(0, number_of_players):
+            player_data = View.ask_for_player_infos()
+            player = Player(*player_data)
+            View.display_player(player)
+            player.save_player()
+
+        return
+
+    @classmethod
+    def load_an_tournament(cls):
         pass
 
-    def generate_a_report_for_a_tournament(self):
+    @classmethod
+    def generate_a_report_for_a_tournament(cls):
         pass
 
     @classmethod
     def quit(cls):
         exit()
 
+    # LANCEMENT.
+
+    @classmethod
+    def run(cls):
+        """Méthode de lancement.
+        """
+        cls.boot_menu()
+
+
+############# RESTES ###############
+
+
+    @classmethod
+    def create_round(cls):
+        pass
+
+    @classmethod
+    def create_match(cls):
+        """Créér un match.
+
+        Returns:
+            match: _description_
+        """
+        match_data = View.get_match_infos()
+        # match = Match(**match_data)
+        View.display_match(match)
+        return match
+
 
 if __name__ == "__main__":
-    pass
-#     controler = Controller()
-#     controler.create_a_tournament()
-#     # controler.get_player()
+    """Tests"""
 
-    Controller.create_a_tournament()
+    # Controller.create_a_tournament()
+    Controller.get_player()
