@@ -1,5 +1,5 @@
 import dateparser
-from datetime import datetime
+from datetime import datetime, date
 
 
 class View:
@@ -12,7 +12,7 @@ class View:
                            "1 - Créer et démarrer un tournoi\n"
                            "2 - Charger un tournoi\n"
                            "3 - Ajouter de(s) joueur(s) au club\n"
-                           "4 - Voir les rapports\n"
+                           "4 - Générer les rapports\n"
                            "q - Quitter\n> "
                            )
 
@@ -56,7 +56,7 @@ class View:
         nb_round = int(input("Entrer le nombre de tour du tournoi: "))
         description = input("Entrer la description du tournoi: ")
 
-        return name_tournament, location, start_date, end_date, nb_round, description
+        return (name_tournament, location, start_date, end_date, nb_round, description)
 
     @classmethod
     def display_tournament(cls, tournament):
@@ -100,9 +100,30 @@ class View:
         """Affiche le joueur.
 
             Args:
-                joueur (Player): Un joueur
+                player (Player): Un joueur
         """
-        print("Player: \n", player)
+        print("Player:\n", player)
+
+    @classmethod
+    def ask_for_report_choice(cls):
+        display_message = """Quel rapport souhaitez-vous obtenir ?
+                           1 - Afficher les joueurs inscrits au club 
+                           2 - Afficher la liste des tournois dejà orgnanisés
+                           3 - Afficher les joueurs inscrits à chaque tournoi
+                           q - Quitter
+                           """
+
+        print(display_message)
+        user_choice = cls.user_input()
+        return user_choice
+
+    @classmethod
+    def display_club_players(cls, players):
+        print("-----------------------------------")
+        print()
+        print("Liste des joueurs inscrits à notre club:")
+        for player in players:
+            print(player)
 
     @classmethod
     def get_match_infos(cls):
@@ -138,3 +159,5 @@ if __name__ == "__main__":
     #     view = View()
     #     # view.ask_for_player_infos()
     #     view.get_match_infos()
+
+    View.ask_for_report_choice()

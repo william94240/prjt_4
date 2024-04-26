@@ -1,1 +1,43 @@
-[]
+[
+    {
+        "name_tournament": "Mairie",
+        "location": "l'Hay",
+        "start_date": "2024-04-18",
+        "end_date": "2024-04-18",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": []
+    },
+    {
+        "name_tournament": "Mairie",
+        "location": "L'hay",
+        "start_date": "2024-04-24",
+        "end_date": "2024-04-25",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": [
+            {
+                "first_name": "Nelly",
+                "last_name": "Mopete",
+                "chess_id": "AB456",
+                "birthday": "1962-07-02"
+            }
+        ]
+    },
+    {
+        "name_tournament": "Mairie",
+        "location": "L'hay ",
+        "start_date": "2024-04-24",
+        "end_date": "2024-04-25",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": [
+            {
+                "first_name": "Nelly",
+                "last_name": "Mopete",
+                "chess_id": "AB456",
+                "birthday": "1962-07-02"
+            }
+        ]
+    }
+]

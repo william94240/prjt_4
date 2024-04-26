@@ -81,7 +81,7 @@ Quel rapport voulez-vous générer ?
 -> 1
 
 """
-from datetime import datetime
+from datetime import datetime, date
 import dateparser
 
 
@@ -114,11 +114,11 @@ class Controller:
 
             # Ajouter de(s) joueur(s) au club
             elif user_choice == "3":
-                cls.get_player()
+                cls.get_club_player()
 
             # Voir les rapports
             elif user_choice == "4":
-                cls.generate_a_report_for_a_tournament()
+                cls.generate_report()
 
             # Quitter
             elif user_choice == "q":
@@ -136,41 +136,42 @@ class Controller:
         tournament = Tournament(*tournamant_infos)
         View.display_tournament(tournament)
         Tournament.tournaments.append(tournament)
+        cls.register_tournament_player()
         tournament.save_tournament()
-        cls.get_player_for_tournament()
+
         # self.create_round()
 
     @classmethod
-    def get_player_for_tournament(cls):
+    def register_tournament_player(cls):
         """Saisie et Crée un joueur pour le tournoi.
 
         Returns:
-            Joueur: retourne une instance de Joueur.
+            Joueur: retourne une instance de Joueur du tournoi.
         """
-        number_of_players = View.ask_number_of_players()
+        # number_of_players = View.ask_number_of_players()
 
-        for player in range(0, number_of_players):
-            player_data = View.ask_for_player_infos()
-            player = Player(*player_data)
-            View.display_player(player)
-            # player.save_player()
+        # for player in range(0, number_of_players):
+        player_data = View.ask_for_player_infos()
+        player = Player(*player_data)
+        View.display_player(player)
+        Tournament.add_tournament_player(player)
 
         return player
 
     @classmethod
-    def get_player(cls):
+    def get_club_player(cls):
         """Crée un joueur.
 
         Returns:
             Joueur: retourne une instance joueur.
         """
-        number_of_players = View.ask_number_of_players()
+        # number_of_players = View.ask_number_of_players()
 
-        for player in range(0, number_of_players):
-            player_data = View.ask_for_player_infos()
-            player = Player(*player_data)
-            View.display_player(player)
-            player.save_player()
+        # for player in range(0, number_of_players):
+        player_data = View.ask_for_player_infos()
+        player = Player(*player_data)
+        View.display_player(player)
+        player.save_club_player()
 
         return
 
@@ -179,8 +180,23 @@ class Controller:
         pass
 
     @classmethod
-    def generate_a_report_for_a_tournament(cls):
-        pass
+    def generate_report(cls):
+        """
+        Générer un rapport.
+        """
+        report_choice = View.ask_for_report_choice()
+
+        if report_choice == "1":
+            cls.display_club_players()
+
+        elif report_choice == "2":
+            cls.display_tournaments()
+
+        elif report_choice == "3":
+            cls.display_players_in_tournament()
+
+        elif report_choice == "q":
+            cls.quit()
 
     @classmethod
     def quit(cls):
@@ -194,9 +210,32 @@ class Controller:
         """
         cls.boot_menu()
 
+############### LES METHODES POUR GENERER DES RAPPORTS ###############
+
+    @classmethod
+    def display_club_players(cls):
+        """Affiche les joueurs du club.
+        """
+        players = Player.display_club_players()
+        View.display_club_players(players)
+
+    @classmethod
+    def display_tournaments(cls):
+        """Affiche les tournois.
+        """
+        # tournaments = Tournament.get_tournaments()
+        # View.display_tournaments(tournaments)
+
+    @classmethod
+    def display_players_in_tournament(cls):
+        """Affiche les joueurs inscrits à un tournoi.
+        """
+        # tournament = Tournament.get_tournament()
+        # players = tournament.get_players()
+        # View.display_players_in_tournament(players)
+
 
 ############# RESTES ###############
-
 
     @classmethod
     def create_round(cls):
@@ -219,4 +258,6 @@ if __name__ == "__main__":
     """Tests"""
 
     # Controller.create_a_tournament()
-    Controller.get_player()
+    # Controller.get_club_player()
+    # Controller.display_club_players()
+    Controller.create_a_tournament()

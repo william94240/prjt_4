@@ -74,8 +74,31 @@
 #         print(line)
 
 
-dictionnaire = {"Mimi": 1960, "William": 1962, "Nelly": 1964}
-liste = []
-print(liste)
-liste.append(dictionnaire)
-print(liste)
+# dictionnaire = {"Mimi": 1960, "William": 1962, "Nelly": 1964}
+# liste = []
+# print(liste)
+# liste.append(dictionnaire)
+# print(liste)
+
+
+# marche = ""
+# if marche:
+#     print("marche")
+
+from datetime import datetime, date, time
+
+now = datetime.now()
+print(now)
+
+today = date.today()
+print(today)
+
+print(datetime(2024, 4, 26, 5, 38, 0, 0))
+
+print(date(2024, 4, 26))
+
+tomorrow = today.replace(day=today.day + 1)
+print(tomorrow)
+
+date.fromisoformat("2024-04-26")
+print(date.fromisoformat("2024-04-26"))

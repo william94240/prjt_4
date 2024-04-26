@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 import json
 import os
@@ -11,14 +11,13 @@ class Player:
     Le joueur.
     """
 
-    def __init__(self, first_name: str, last_name: str, chess_id: str, birthday: datetime):
+    def __init__(self, first_name: str, last_name: str, chess_id: str, birthday: date):
         """Création du joueur.
         Args:
-            nom (str): le nom du joueur à créer.
-            prenom (str): le prenom du joueur à créer.
-            date_naissance (datetime): la date_naissance du joueur à créer.
-            identifiant_echecs (str): l'identifiant nationale d'echecs
-            du joueur à créer.
+            last_name (str): le nom du joueur à créer.
+            first_name (str): le prenom du joueur à créer.
+            birthday (datetime): la date_naissance du joueur à créer.
+            chess_id (str): l'identifiant nationale d'echecs du joueur à créer.
         """
 
         self.first_name = first_name
@@ -52,7 +51,7 @@ class Player:
         Transforme les données en dictionnaire
 
         Returns:
-            Dict: données en Dictionnaire
+            Dict: retourne des données sous la forme d'un dictionnaire
         """
 
         player_serialized = {
@@ -65,33 +64,63 @@ class Player:
 
         return player_serialized
 
-    def save_player(self):
+    def save_club_player(self):
         """Sauvegarde le joueur dans un fichier json.
 
         Returns:
-            _type_: _description_
+            _type_: None
         """
 
-        file_path = Path.cwd()
-        file_path = file_path/"data"
-        file_path = file_path/"players.json"
+        folder_path = Path.cwd()/"data"
+        file_path = folder_path/"club_players.json"
 
         if not os.path.exists(file_path):
-            file_path.parent.mkdir(parents=True, exist_ok=True)
+            folder_path.mkdir(parents=True, exist_ok=True)
             file_path.touch()
             with open(file_path, "w") as f:
                 json.dump([], f)
 
-        with open(file_path, "r+", encoding="utf-8") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             players = json.load(f)
-            print(players)
-            player_serialized = self.player_serialize()
-            print(player_serialized)
 
-            players.append(player_serialized)
-            print(players)
+        player_serialized = self.player_serialize()
+        players.append(player_serialized)
 
+        with open(file_path, "w", encoding="utf-8") as f:
             json.dump(players, f, indent=4)
+
+    @classmethod
+    def player_deserialize(cls, player_serialized):
+        """
+        Restaure le dictionnaire en données originales.
+        """
+
+        player_serialized["birthday"] = date.fromisoformat(
+            player_serialized["birthday"])
+
+        player = cls(player_serialized["first_name"], player_serialized["last_name"],
+                     player_serialized["chess_id"], player_serialized["birthday"])
+
+        return player
+
+    @classmethod
+    def display_club_players(cls):
+        """Affiche les joueurs inscrits au club.
+        """
+
+        file_path = Path.cwd()/"data"/"club_players.json"
+
+        with open(file_path, "r", encoding="utf-8") as f:
+            players_serialized = json.load(f)
+            players = []
+            # [cls.player_deserialize(
+            #     player_serialized) for player_serialized in players_serialized]
+
+            for player_serialized in players_serialized:
+                player = cls.player_deserialize(player_serialized)
+                players.append(player.__str__())
+
+        return players
 
 
 class Tournament:
@@ -101,7 +130,7 @@ class Tournament:
     # Liste des tournois.
     tournaments = []
     # Liste pour stocker les joueurs inscrits au tournoi.
-    players_registered_in_tournement = []
+    players = []
 
     def __init__(self, name_tournament: str, location: str, start_date: datetime, end_date: datetime,
                  nb_round: int = 4, description: str = ""):
@@ -156,8 +185,13 @@ class Tournament:
             "start_date": self.start_date.strftime("%Y-%m-%d"),
             "end_date": self.end_date.strftime("%Y-%m-%d"),
             "nb_round": self.nb_round,
-            "description": self.description
+            "description": self.description,
+            "Players": []
+
         }
+
+        tournament_serialized["Players"] = [
+            player.player_serialize() for player in Tournament.players]
 
         return tournament_serialized
 
@@ -169,26 +203,33 @@ class Tournament:
 
         """
 
-        file_path = Path.cwd()
-        file_path = file_path/"data"
-        file_path = file_path/"tournaments.json"
+        folder_path = Path.cwd()/"data"
+        file_path = folder_path/"tournaments.json"
 
         if not os.path.exists(file_path):
-            file_path.parent.mkdir(exist_ok=True)
+            folder_path.mkdir(exist_ok=True)
             file_path.touch()
             with open(file_path, "w") as f:
                 json.dump([], f)
 
-        with open(file_path, "r+", encoding="utf-8") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             tournaments = json.load(f)
-            print(tournaments)
             tournament_serialized = self.tournament_serialize()
-            print(tournament_serialized)
-
             tournaments.append(tournament_serialized)
-            print(tournaments)
 
-            # json.dump(tournaments, f, indent=4)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(tournaments, f, indent=4)
+
+    @classmethod
+    def add_tournament_player(cls, player: Player):
+        """Sauvegarde le joueur dans le fichier tournament.
+
+        Returns:
+            _type_: _description_
+
+        """
+        Tournament.players.append(player)
+        return Tournament.players
 
 
 class Match:
@@ -264,17 +305,30 @@ if __name__ == "__main__":
     Tests
     """
 
-    # player1 = Player("William", "Mopete", "AB12345", datetime(1962, 4, 14))
+    # player1 = Player("William", "Mopete", "AB12345", date(1962, 4, 14))
     # print(player1)
-    # # print(player1.get_player_in_dictionnary_format())
-    # player1.save_player()
+    # print(player1.player_serialize())
+    # player1.save_club_player()
 
-    # player2 = Player("Nelly", "Mopete", "AB98745", datetime(1964, 6, 2))
+    # player_serialized = {
+    #     "first_name": "William",
+    #     "last_name": "Mopete",
+    #     "chess_id": "AB123",
+    #     "birthday": "1962-04-14"
+    # }
+
+    # player = Player.player_deserialize(player_serialized)
+    # print(player)
+
+    # print(Player.display_club_players())
+
+    # player2 = Player("Nelly", "Mopete", "AB98745", date(1964, 6, 2))
     # print(player2)
     # # print(player2.get_player_in_dictionnary_format())
     # player2.save_player()
 
-    tournament_1 = Tournament("Lipopo", "Kinshasa", datetime(
+    tournament_1 = Tournament("Mairie", "l'Hay", datetime(
         2024, 4, 18), datetime(2024, 4, 18), 4, "ras")
     print(tournament_1)
+    print(tournament_1.tournament_serialize())
     tournament_1.save_tournament()
