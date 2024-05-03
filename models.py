@@ -130,7 +130,7 @@ class Tournament:
     # Liste des tournois.
     tournaments = []
     # Liste pour stocker les joueurs inscrits au tournoi.
-    players = []
+    # players = []
 
     def __init__(self, name_tournament: str, location: str, start_date: datetime, end_date: datetime,
                  nb_round: int = 4, description: str = ""):
@@ -151,9 +151,7 @@ class Tournament:
         self.nb_round = nb_round
         self.description = description
         self.rounds = []
-
-        # le numéro correspondant au tour .
-        number_of_round = len(self.rounds) + 1
+        self.players = []
 
     def __repr__(self):
         """Méthode pour afficher les détails sur tournoi
@@ -162,7 +160,7 @@ class Tournament:
             str: affiche les details sur le joueur.
         """
 
-        return f'{"name_tournament": {self.name_tournament}, "location": {self.location}, "start_date": {self.start_date}, "end_date": {self.end_date}, "nb_round": {self.nb_round}, "description": {self.description}}'
+        return f'{"Nom du tournoi": {self.name_tournament}, "Lieu": {self.location}, "Date début": {self.start_date}, "Date fin": {self.end_date}, "Nombre de Tours": {self.nb_round}, "Description": {self.description}}'
 
     def __str__(self):
         """
@@ -180,18 +178,18 @@ class Tournament:
         """
 
         tournament_serialized = {
-            "name_tournament": self.name_tournament,
-            "location": self.location,
-            "start_date": self.start_date.strftime("%Y-%m-%d"),
-            "end_date": self.end_date.strftime("%Y-%m-%d"),
-            "nb_round": self.nb_round,
-            "description": self.description,
-            "Players": []
+            "Nom du tournoi": self.name_tournament,
+            "Lieu": self.location,
+            "Date début": self.start_date.strftime("%Y-%m-%d"),
+            "Date fin": self.end_date.strftime("%Y-%m-%d"),
+            "Nombre de Tours": self.nb_round,
+            "Description": self.description,
+            "Joueurs": self.players
 
         }
 
-        tournament_serialized["Players"] = [
-            player.player_serialize() for player in Tournament.players]
+        tournament_serialized["Joueurs"] = [
+            player.player_serialize() for player in self.players]
 
         return tournament_serialized
 
@@ -220,16 +218,83 @@ class Tournament:
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(tournaments, f, indent=4)
 
-    @classmethod
-    def add_tournament_player(cls, player: Player):
+    def add_tournament_player(self, player: Player):
         """Sauvegarde le joueur dans le fichier tournament.
 
         Returns:
             _type_: _description_
 
         """
-        Tournament.players.append(player)
-        return Tournament.players
+        self.players.append(player)
+        return self.players
+
+    @classmethod
+    def tournament_deserialize(cls, tournament_serialized):
+        """
+        Restaure le dictionnaire en données originales.
+        """
+
+        tournament_serialized["start_date"] = date.fromisoformat(
+            tournament_serialized["start_date"])
+        tournament_serialized["end_date"] = date.fromisoformat(
+            tournament_serialized["end_date"])
+
+        tournament = cls(tournament_serialized["name_tournament"], tournament_serialized["location"],
+                         tournament_serialized["start_date"], tournament_serialized["end_date"], tournament_serialized["nb_round"], tournament_serialized["description"])
+
+        return tournament
+
+    def create_round(self):
+        """
+        Créer un round.
+        """
+        if len(self.rounds) <= self.nb_round:
+            # Nom correspondant au tour.
+            round_name = f"Round {len(self.rounds) + 1}"
+            round = Round(round_name)
+            self.rounds.append(round)
+            return round
+        else:
+            print("Le tournoi est terminé.")
+            exit()
+
+
+class Round:
+    """ Création de l'entité Round."""
+
+    def __init__(self, round_name: str):
+        self.round_name = round_name
+        self.start_datetime = datetime.now()
+        # self.end_datetime = self.round_finished()
+        self.matches = []
+
+    def __str__(self):
+        """Retourne round info en liste"""
+        return self.round_name
+
+    def __repr__(self):
+        """Retourne round infos"""
+        return f'"Nom du tour": {self.round_name} "Début": {self.start_datetime} "Les matches": {self.matches}'
+
+    def round_finished(self):
+        """Marque la fin du round.
+
+        Returns:
+            _type_: _description_
+        """
+        return datetime.now()
+
+    def get_match_pairing(self, player_1, player_2):
+        """Set match paring as tuple"""
+        match = (
+            f"{player_1['last_name']}, {player_1['first_name']}",
+            player_1["rank"],
+            player_1["score"],
+            f"{player_2['last_name']}, {player_2['first_name']}",
+            player_2["rank"],
+            player_2["score"]
+        )
+        self.matches.append(match)
 
 
 class Match:
@@ -237,7 +302,7 @@ class Match:
     Le Match.
     """
 
-    def __init__(self, player_1: Player, player_2: Player, score_player_1: int = 0,  score_player_2: int = 0):
+    def __init__(self, player_1: Player, player_2: Player, score_player_1: float = 0,  score_player_2: float = 0):
         """Création de l'entité Match.
 
         Args:
@@ -246,28 +311,8 @@ class Match:
         """
         self.player_1 = player_1
         self.player_2 = player_2
-        # Peut être rédefinit plus tard lors de la saisie des résultats
         self.score_player_1 = score_player_1
         self.score_player_2 = score_player_2
-
-    def definir_resultat(self, score_player_1: int = 0, score_player_2: int = 0):
-        """
-        Méthode pour définir le résultat du match
-
-        Args:
-            resultat (Tuple): Le resultat
-        """
-        self.resultat = (score_player_1, score_player_2)
-
-    def obtenir_resultat(self):
-        """
-        Méthode pour obtenir les résultats du match
-
-        Returns:
-            str: Retour des points de deux joueurs.
-        """
-
-        return self.resultat
 
     def __str__(self):
         """
@@ -275,29 +320,12 @@ class Match:
         """
         return f"Joueur 1: {self.player_1} - point: {self.score_player_1} ::: Joueur 2: {self.player_2} - point: {self.score_player_2}"
 
+    def __repr__(self):
+        """
+        Méthode pour representer le match
+        """
 
-class Round:
-    """ Création de l'entité Round."""
-
-    def __init__(self, round_name: str, start_datetime: datetime, end_datetime: datetime):
-        self.round_name = round_name
-        self.start_datetime = start_datetime
-        self.end_datetime = end_datetime
-        self.matches = []
-
-    def set_round(self):
-        """Returne round info en liste"""
-        return [self.round_name, self.start_datetime, self.end_datetime, self.matches]
-
-    def get_match_pairing(self, player_1, player_2):
-        """Set match paring as tuple"""
-        match = (
-            f"{player_1['last_name']}, {player_1['first_name']}",
-            player_1["score"],
-            f"{player_2['last_name']}, {player_2['first_name']}",
-            player_2["score"]
-        )
-        self.matches.append(match)
+        return ([{self.player_1}, {self.score_player_1}], [{self.player_2}, {self.score_player_2}])
 
 
 if __name__ == "__main__":
@@ -331,4 +359,7 @@ if __name__ == "__main__":
         2024, 4, 18), datetime(2024, 4, 18), 4, "ras")
     print(tournament_1)
     print(tournament_1.tournament_serialize())
-    tournament_1.save_tournament()
+    # tournament_1.save_tournament()
+    created_round = tournament_1.create_round()
+    print(created_round)
+    print(tournament_1.rounds)

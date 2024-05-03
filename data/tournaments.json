@@ -39,5 +39,71 @@
                 "birthday": "1962-07-02"
             }
         ]
+    },
+    {
+        "name_tournament": "Mairie",
+        "location": "l'Hay",
+        "start_date": "2024-04-18",
+        "end_date": "2024-04-18",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": []
+    },
+    {
+        "name_tournament": "Mairie",
+        "location": "l'Hay",
+        "start_date": "2024-04-18",
+        "end_date": "2024-04-18",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": []
+    },
+    {
+        "name_tournament": "Marie",
+        "location": "Pantin",
+        "start_date": "2024-04-26",
+        "end_date": "2024-04-27",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": [
+            {
+                "first_name": "Nelly",
+                "last_name": "Mopete",
+                "chess_id": "ae456",
+                "birthday": "1972-07-02"
+            }
+        ]
+    },
+    {
+        "name_tournament": "Bobigny",
+        "location": "Bobigny",
+        "start_date": "2024-04-30",
+        "end_date": "2024-04-30",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": [
+            {
+                "first_name": "Nicolas Niko",
+                "last_name": "Niko",
+                "chess_id": "qs456",
+                "birthday": "1961-03-07"
+            }
+        ]
+    },
+    {
+        "name_tournament": "Mairie Cachan",
+        "location": "cachan",
+        "start_date": "2024-05-02",
+        "end_date": "2024-05-02",
+        "nb_round": 4,
+        "description": "ras",
+        "Players": [
+            {
+                "first_name": "guylain",
+                "last_name": "malet",
+                "chess_id": "ze78945",
+                "birthday": "1980-09-12"
+            }
+        ]
     }
 ]

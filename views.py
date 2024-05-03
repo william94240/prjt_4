@@ -63,6 +63,10 @@ class View:
         print("Tournoi -->", tournament)
 
     @classmethod
+    def display_round(cls, round):
+        print("Tour -->", round)
+
+    @classmethod
     def ask_number_of_players(cls):
         """Demande le nombre de joueurs à saisir
         """
@@ -126,7 +130,7 @@ class View:
             print(player)
 
     @classmethod
-    def get_match_infos(cls):
+    def get_match_score(cls):
         """
         Demande d'infos à saisir sur le match.
 
@@ -134,14 +138,12 @@ class View:
             : un tuple d'infos
         """
 
-        player_1 = cls.ask_for_player_infos()
-        score_player_1 = int(
-            input("Résultat du joueur 1 entre (0, 0.5, 1): "))
-        player_2 = cls.ask_for_player_infos()
-        score_player_2 = int(
-            input("Résultat du joueur 2 entre (0, 0.5, 1): "))
-        match_data = (player_1, player_2, score_player_1, score_player_2)
-        return match_data
+        score_player_1 = float(
+            input("Entrer le résultat du premier joueur du match [valeur comprise entre (0, 0.5, 1)] : "))
+        score_player_2 = float(
+            input("Entrer le résultat du second joueur du match [valeur comprise entre (0, 0.5, 1)] : "))
+
+        return [score_player_1, score_player_2]
 
     @classmethod
     def display_match(cls, match):

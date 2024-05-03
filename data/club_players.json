@@ -58,5 +58,17 @@
         "last_name": "Mopete",
         "chess_id": "AB12345",
         "birthday": "1962-04-14"
+    },
+    {
+        "first_name": "Toto",
+        "last_name": "tati",
+        "chess_id": "AS123",
+        "birthday": "2000-09-12"
+    },
+    {
+        "first_name": "Mimi ",
+        "last_name": "Mopete",
+        "chess_id": "AD789",
+        "birthday": "1960-06-18"
     }
 ]

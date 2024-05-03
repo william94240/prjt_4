@@ -85,20 +85,38 @@
 # if marche:
 #     print("marche")
 
-from datetime import datetime, date, time
+# from datetime import datetime, date, time
 
-now = datetime.now()
-print(now)
+# now = datetime.now()
+# print(now)
 
-today = date.today()
-print(today)
+# today = date.today()
+# print(today)
 
-print(datetime(2024, 4, 26, 5, 38, 0, 0))
+# print(datetime(2024, 4, 26, 5, 38, 0, 0))
 
-print(date(2024, 4, 26))
+# print(date(2024, 4, 26))
 
-tomorrow = today.replace(day=today.day + 1)
-print(tomorrow)
+# tomorrow = today.replace(day=today.day + 1)
+# print(tomorrow)
 
-date.fromisoformat("2024-04-26")
-print(date.fromisoformat("2024-04-26"))
+# date.fromisoformat("2024-04-26")
+# print(date.fromisoformat("2024-04-26"))
+
+
+class Pave:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
+
+    def surfBase(self):
+        return self.a*self.b
+
+    def volume(self):
+        return self.c * self.surfBase()
+
+
+pave = Pave(2, 3, 4)
+print(pave.surfBase())
+print(pave.volume())

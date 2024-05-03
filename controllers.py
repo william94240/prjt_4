@@ -85,7 +85,7 @@ from datetime import datetime, date
 import dateparser
 
 
-from models import Tournament, Player, Match
+from models import Tournament, Player, Round, Match
 from views import View
 
 
@@ -136,27 +136,57 @@ class Controller:
         tournament = Tournament(*tournamant_infos)
         View.display_tournament(tournament)
         Tournament.tournaments.append(tournament)
-        cls.register_tournament_player()
+        cls.register_tournament_player(tournament)
+        cls.create_round(tournament)
         tournament.save_tournament()
 
-        # self.create_round()
+        return tournament
 
     @classmethod
-    def register_tournament_player(cls):
+    def register_tournament_player(cls, tournament: Tournament):
         """Saisie et Crée un joueur pour le tournoi.
 
         Returns:
             Joueur: retourne une instance de Joueur du tournoi.
         """
-        # number_of_players = View.ask_number_of_players()
 
-        # for player in range(0, number_of_players):
         player_data = View.ask_for_player_infos()
         player = Player(*player_data)
         View.display_player(player)
-        Tournament.add_tournament_player(player)
+
+        tournament.add_tournament_player(player)
 
         return player
+
+    @classmethod
+    def create_round(cls, tournament: Tournament):
+        """crée un round pour le tournoi.
+
+        Returns:
+            round: retourne une instance d'un tour du tournoi.
+        """
+        round = tournament.create_round()
+        View.display_round(round.round_name)
+        cls.create_match(tournament)
+
+        return
+
+    @classmethod
+    def create_match(cls, tournament: Tournament):
+        """Créér un match.
+
+        Returns:
+            match: _description_
+        """
+        player_1 = tournament.players[0]
+        player_2 = tournament.players[1]
+        score_player_1 = View.get_match_score()[0]
+        score_player_2 = View.get_match_score()[1]
+        match = Match(
+            player_1, player_2, score_player_1, score_player_2)
+        View.display_match(match)
+
+        return match
 
     @classmethod
     def get_club_player(cls):
@@ -236,22 +266,6 @@ class Controller:
 
 
 ############# RESTES ###############
-
-    @classmethod
-    def create_round(cls):
-        pass
-
-    @classmethod
-    def create_match(cls):
-        """Créér un match.
-
-        Returns:
-            match: _description_
-        """
-        match_data = View.get_match_infos()
-        # match = Match(**match_data)
-        View.display_match(match)
-        return match
 
 
 if __name__ == "__main__":
