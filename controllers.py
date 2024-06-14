@@ -98,6 +98,14 @@ class Controller:
         Initialisation du Controleur du tournoi.
         """
 
+        # LANCEMENT.
+
+    @classmethod
+    def run(cls):
+        """Méthode de lancement.
+        """
+        cls.boot_menu()
+
     @classmethod
     def boot_menu(cls):
 
@@ -105,16 +113,17 @@ class Controller:
 
             user_choice = View.display_boot_menu()
 
+            # Ajouter de(s) joueur(s) au club
             if user_choice == "1":
+                cls.get_club_player()
+
+            # Créer un tournoi
+            elif user_choice == "2":
                 cls.create_a_tournament()
 
             # Charger un tournoi
-            elif user_choice == "2":
-                cls.load_an_tournament()
-
-            # Ajouter de(s) joueur(s) au club
             elif user_choice == "3":
-                cls.get_club_player()
+                cls.load_an_tournament()
 
             # Voir les rapports
             elif user_choice == "4":
@@ -123,6 +132,27 @@ class Controller:
             # Quitter
             elif user_choice == "q":
                 cls.quit()
+
+    @classmethod
+    def get_club_player(cls):
+        """Inscrits un joueur au club.
+
+        Returns:
+            incription au club.
+        """
+        
+        while True:
+            player_data = View.ask_for_player_infos()
+            player = Player(*player_data)
+            View.display_player(player)
+            player.save_club_player()
+
+            finish = View.finish_to_register_players_in_club()
+            
+            if finish != "o":
+                break
+
+        return
 
     @classmethod
     def create_a_tournament(cls):
@@ -137,7 +167,22 @@ class Controller:
         View.display_tournament(tournament)
         Tournament.tournaments.append(tournament)
         cls.register_tournament_player(tournament)
-        cls.create_round(tournament)
+        View.go_on_tournament()
+        round = tournament.create_round()
+        View.display_round(round)
+        View.go_on_match()
+        for i, match in enumerate(round.matches):
+            # print(f"Match {i+1}")            
+            View.display_round_matches(i, match)
+            # match.set_winner()
+            # match.save_match()
+        
+        # for i in range(0, tournament.nb_round):
+            # cls.create_round(tournament)
+        #     round = tournament.create_round()
+        #     # TODO: Afficher les matches du round
+        #     # TODO: pour chaque match demander le gagnant - Mettre à jour les scores
+
         tournament.save_tournament()
 
         return tournament
@@ -148,62 +193,53 @@ class Controller:
 
         Returns:
             Joueur: retourne une instance de Joueur du tournoi.
-        """
+         """
+        
 
-        player_data = View.ask_for_player_infos()
-        player = Player(*player_data)
-        View.display_player(player)
+        number_of_players = View.ask_number_of_players()
 
-        tournament.add_tournament_player(player)
+        for i in range(0, number_of_players):
+            player_data = View.ask_for_player_infos()
+            player = Player(*player_data)
+            View.display_player(player)
+            tournament.players.append(player)            
+            
 
-        return player
 
-    @classmethod
-    def create_round(cls, tournament: Tournament):
-        """crée un round pour le tournoi.
+            
 
-        Returns:
-            round: retourne une instance d'un tour du tournoi.
-        """
-        round = tournament.create_round()
-        View.display_round(round.round_name)
-        cls.create_match(tournament)
+    
 
-        return
 
-    @classmethod
-    def create_match(cls, tournament: Tournament):
-        """Créér un match.
+    # @classmethod
+    # def create_round(cls, tournament: Tournament):
+    #     """crée un round pour le tournoi.
 
-        Returns:
-            match: _description_
-        """
-        player_1 = tournament.players[0]
-        player_2 = tournament.players[1]
-        score_player_1 = View.get_match_score()[0]
-        score_player_2 = View.get_match_score()[1]
-        match = Match(
-            player_1, player_2, score_player_1, score_player_2)
-        View.display_match(match)
+    #     Returns:
+    #         round: retourne une instance d'un tour du tournoi.
+    #     """
+    #     round = tournament.create_round()
+    #     View.display_round(round.round_name)
+    #     cls.create_match(tournament)
 
-        return match
+        # return
 
-    @classmethod
-    def get_club_player(cls):
-        """Crée un joueur.
+    # @classmethod
+    # def create_match(cls, tournament: Tournament):
+    #     """Créér un match.
 
-        Returns:
-            Joueur: retourne une instance joueur.
-        """
-        # number_of_players = View.ask_number_of_players()
+    #     Returns:
+    #         match: _description_
+    #     """
+    #     player_1 = tournament.players[0]
+    #     player_2 = tournament.players[1]
+    #     score_player_1 = View.get_match_score()[0]
+    #     score_player_2 = View.get_match_score()[1]
+    #     match = Match(
+    #         player_1, player_2, score_player_1, score_player_2)
+    #     View.display_match(match)
 
-        # for player in range(0, number_of_players):
-        player_data = View.ask_for_player_infos()
-        player = Player(*player_data)
-        View.display_player(player)
-        player.save_club_player()
-
-        return
+    #     return match
 
     @classmethod
     def load_an_tournament(cls):
@@ -232,13 +268,6 @@ class Controller:
     def quit(cls):
         exit()
 
-    # LANCEMENT.
-
-    @classmethod
-    def run(cls):
-        """Méthode de lancement.
-        """
-        cls.boot_menu()
 
 ############### LES METHODES POUR GENERER DES RAPPORTS ###############
 
@@ -274,4 +303,7 @@ if __name__ == "__main__":
     # Controller.create_a_tournament()
     # Controller.get_club_player()
     # Controller.display_club_players()
+    # Controller.create_a_tournament()
+    # Controller.get_club_player()
     Controller.create_a_tournament()
+    # Controller.register_tournament_player()

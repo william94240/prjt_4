@@ -1,108 +1,289 @@
 [
     {
-        "name_tournament": "Mairie",
-        "location": "l'Hay",
-        "start_date": "2024-04-18",
-        "end_date": "2024-04-18",
+        "name_tournament": "tourcoing",
+        "location": "tourcoing",
+        "start_date": "2024-06-12",
+        "end_date": "2024-06-13",
         "nb_round": 4,
         "description": "ras",
-        "Players": []
-    },
-    {
-        "name_tournament": "Mairie",
-        "location": "L'hay",
-        "start_date": "2024-04-24",
-        "end_date": "2024-04-25",
-        "nb_round": 4,
-        "description": "ras",
-        "Players": [
+        "players": [
+            {
+                "first_name": "Lazare",
+                "last_name": "Mopete",
+                "chess_id": "ad25836",
+                "birthday": "1966-10-18"
+            },
             {
                 "first_name": "Nelly",
                 "last_name": "Mopete",
-                "chess_id": "AB456",
-                "birthday": "1962-07-02"
+                "chess_id": "qs45612",
+                "birthday": "1964-07-02"
+            },
+            {
+                "first_name": "Mimi",
+                "last_name": "Mopete",
+                "chess_id": "aq78945",
+                "birthday": "1960-06-10"
+            },
+            {
+                "first_name": "William",
+                "last_name": "Mopete",
+                "chess_id": "az74123",
+                "birthday": "1962-04-14"
+            }
+        ],
+        "number_rounds": 4,
+        "rounds": [
+            {
+                "round_name": "Round 1",
+                "start_datetime": "2024-06-12",
+                "end_datetime": null,
+                "matches": [
+                    {
+                        "player_1": {
+                            "first_name": "Lazare",
+                            "last_name": "Mopete",
+                            "chess_id": "ad25836",
+                            "birthday": "1966-10-18"
+                        },
+                        "player_2": {
+                            "first_name": "Nelly",
+                            "last_name": "Mopete",
+                            "chess_id": "qs45612",
+                            "birthday": "1964-07-02"
+                        }
+                    },
+                    {
+                        "player_1": {
+                            "first_name": "Mimi",
+                            "last_name": "Mopete",
+                            "chess_id": "aq78945",
+                            "birthday": "1960-06-10"
+                        },
+                        "player_2": {
+                            "first_name": "William",
+                            "last_name": "Mopete",
+                            "chess_id": "az74123",
+                            "birthday": "1962-04-14"
+                        }
+                    }
+                ]
             }
         ]
     },
     {
-        "name_tournament": "Mairie",
-        "location": "L'hay ",
-        "start_date": "2024-04-24",
-        "end_date": "2024-04-25",
+        "name_tournament": "tourcoing",
+        "location": "tourcoing",
+        "start_date": "2024-06-12",
+        "end_date": "2024-06-13",
         "nb_round": 4,
         "description": "ras",
-        "Players": [
+        "players": [
+            {
+                "first_name": "Mimi",
+                "last_name": "Mopete",
+                "chess_id": "aq78945",
+                "birthday": "1960-06-10"
+            },
             {
                 "first_name": "Nelly",
                 "last_name": "Mopete",
-                "chess_id": "AB456",
-                "birthday": "1962-07-02"
+                "chess_id": "qs45612",
+                "birthday": "1964-07-02"
+            },
+            {
+                "first_name": "William",
+                "last_name": "Mopete",
+                "chess_id": "az74123",
+                "birthday": "1962-04-14"
+            },
+            {
+                "first_name": "Lazare",
+                "last_name": "Mopete",
+                "chess_id": "ad25836",
+                "birthday": "1966-10-18"
+            }
+        ],
+        "number_rounds": 4,
+        "rounds": [
+            {
+                "round_name": "Round 1",
+                "start_datetime": "2024-06-12",
+                "end_datetime": null,
+                "matches": [
+                    {
+                        "player_1": {
+                            "first_name": "Mimi",
+                            "last_name": "Mopete",
+                            "chess_id": "aq78945",
+                            "birthday": "1960-06-10"
+                        },
+                        "player_2": {
+                            "first_name": "Nelly",
+                            "last_name": "Mopete",
+                            "chess_id": "qs45612",
+                            "birthday": "1964-07-02"
+                        }
+                    },
+                    {
+                        "player_1": {
+                            "first_name": "William",
+                            "last_name": "Mopete",
+                            "chess_id": "az74123",
+                            "birthday": "1962-04-14"
+                        },
+                        "player_2": {
+                            "first_name": "Lazare",
+                            "last_name": "Mopete",
+                            "chess_id": "ad25836",
+                            "birthday": "1966-10-18"
+                        }
+                    }
+                ]
             }
         ]
     },
     {
-        "name_tournament": "Mairie",
-        "location": "l'Hay",
-        "start_date": "2024-04-18",
-        "end_date": "2024-04-18",
+        "name_tournament": "tourcoing",
+        "location": "tourcoing",
+        "start_date": "2024-06-12",
+        "end_date": "2024-06-13",
         "nb_round": 4,
         "description": "ras",
-        "Players": []
-    },
-    {
-        "name_tournament": "Mairie",
-        "location": "l'Hay",
-        "start_date": "2024-04-18",
-        "end_date": "2024-04-18",
-        "nb_round": 4,
-        "description": "ras",
-        "Players": []
-    },
-    {
-        "name_tournament": "Marie",
-        "location": "Pantin",
-        "start_date": "2024-04-26",
-        "end_date": "2024-04-27",
-        "nb_round": 4,
-        "description": "ras",
-        "Players": [
+        "players": [
+            {
+                "first_name": "Mimi",
+                "last_name": "Mopete",
+                "chess_id": "aq78945",
+                "birthday": "1960-06-10"
+            },
+            {
+                "first_name": "Lazare",
+                "last_name": "Mopete",
+                "chess_id": "ad25836",
+                "birthday": "1966-10-18"
+            },
+            {
+                "first_name": "William",
+                "last_name": "Mopete",
+                "chess_id": "az74123",
+                "birthday": "1962-04-14"
+            },
             {
                 "first_name": "Nelly",
                 "last_name": "Mopete",
-                "chess_id": "ae456",
-                "birthday": "1972-07-02"
+                "chess_id": "qs45612",
+                "birthday": "1964-07-02"
+            }
+        ],
+        "number_rounds": 4,
+        "rounds": [
+            {
+                "round_name": "Round 1",
+                "start_datetime": "2024-06-12",
+                "end_datetime": null,
+                "matches": [
+                    {
+                        "player_1": {
+                            "first_name": "Mimi",
+                            "last_name": "Mopete",
+                            "chess_id": "aq78945",
+                            "birthday": "1960-06-10"
+                        },
+                        "player_2": {
+                            "first_name": "Lazare",
+                            "last_name": "Mopete",
+                            "chess_id": "ad25836",
+                            "birthday": "1966-10-18"
+                        }
+                    },
+                    {
+                        "player_1": {
+                            "first_name": "William",
+                            "last_name": "Mopete",
+                            "chess_id": "az74123",
+                            "birthday": "1962-04-14"
+                        },
+                        "player_2": {
+                            "first_name": "Nelly",
+                            "last_name": "Mopete",
+                            "chess_id": "qs45612",
+                            "birthday": "1964-07-02"
+                        }
+                    }
+                ]
             }
         ]
     },
     {
-        "name_tournament": "Bobigny",
-        "location": "Bobigny",
-        "start_date": "2024-04-30",
-        "end_date": "2024-04-30",
+        "name_tournament": "tourcoing",
+        "location": "tourcoing",
+        "start_date": "2024-06-12",
+        "end_date": "2024-06-13",
         "nb_round": 4,
         "description": "ras",
-        "Players": [
+        "players": [
             {
-                "first_name": "Nicolas Niko",
-                "last_name": "Niko",
-                "chess_id": "qs456",
-                "birthday": "1961-03-07"
+                "first_name": "Mimi",
+                "last_name": "Mopete",
+                "chess_id": "aq78945",
+                "birthday": "1960-06-10"
+            },
+            {
+                "first_name": "Nelly",
+                "last_name": "Mopete",
+                "chess_id": "qs45612",
+                "birthday": "1964-07-02"
+            },
+            {
+                "first_name": "Lazare",
+                "last_name": "Mopete",
+                "chess_id": "ad25836",
+                "birthday": "1966-10-18"
+            },
+            {
+                "first_name": "William",
+                "last_name": "Mopete",
+                "chess_id": "az74123",
+                "birthday": "1962-04-14"
             }
-        ]
-    },
-    {
-        "name_tournament": "Mairie Cachan",
-        "location": "cachan",
-        "start_date": "2024-05-02",
-        "end_date": "2024-05-02",
-        "nb_round": 4,
-        "description": "ras",
-        "Players": [
+        ],
+        "number_rounds": 4,
+        "rounds": [
             {
-                "first_name": "guylain",
-                "last_name": "malet",
-                "chess_id": "ze78945",
-                "birthday": "1980-09-12"
+                "round_name": "Round 1",
+                "start_datetime": "2024-06-12",
+                "end_datetime": null,
+                "matches": [
+                    {
+                        "player_1": {
+                            "first_name": "Mimi",
+                            "last_name": "Mopete",
+                            "chess_id": "aq78945",
+                            "birthday": "1960-06-10"
+                        },
+                        "player_2": {
+                            "first_name": "Nelly",
+                            "last_name": "Mopete",
+                            "chess_id": "qs45612",
+                            "birthday": "1964-07-02"
+                        }
+                    },
+                    {
+                        "player_1": {
+                            "first_name": "Lazare",
+                            "last_name": "Mopete",
+                            "chess_id": "ad25836",
+                            "birthday": "1966-10-18"
+                        },
+                        "player_2": {
+                            "first_name": "William",
+                            "last_name": "Mopete",
+                            "chess_id": "az74123",
+                            "birthday": "1962-04-14"
+                        }
+                    }
+                ]
             }
         ]
     }

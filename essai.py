@@ -104,19 +104,27 @@
 # print(date.fromisoformat("2024-04-26"))
 
 
-class Pave:
-    def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+# class Pave:
+#     def __init__(self, a, b, c):
+#         self.a = a
+#         self.b = b
+#         self.c = c
 
-    def surfBase(self):
-        return self.a*self.b
+#     def surfBase(self):
+#         return self.a*self.b
 
-    def volume(self):
-        return self.c * self.surfBase()
+#     def volume(self):
+#         return self.c * self.surfBase()
 
 
-pave = Pave(2, 3, 4)
-print(pave.surfBase())
-print(pave.volume())
+# pave = Pave(2, 3, 4)
+# print(pave.surfBase())
+# print(pave.volume())
+
+
+import json
+
+data = {"maison": "dua", "voiture": 4, "velo": 2, "moto": None, "avion": 0}
+
+with open("data.json","w") as file:
+    json.dump(data, file, indent=4)

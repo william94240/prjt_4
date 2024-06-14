@@ -1,5 +1,6 @@
 import dateparser
 from datetime import datetime, date
+import rich
 
 
 class View:
@@ -8,15 +9,16 @@ class View:
 
     @classmethod
     def display_boot_menu(cls):
-        display_message = ("Que souhaitez-vous faire ?\n"
-                           "1 - Créer et démarrer un tournoi\n"
-                           "2 - Charger un tournoi\n"
-                           "3 - Ajouter de(s) joueur(s) au club\n"
-                           "4 - Générer les rapports\n"
-                           "q - Quitter\n> "
-                           )
+        rich.print("-" * 100)
+        display_message = """Que souhaitez-vous faire ?
+                              1 - Ajouter de(s) joueur(s) au club.
+                              2 - Créer et démarrer un tournoi.
+                              3 - Charger un tournoi.
+                              4 - Générer les rapports.
+                              q - Quitter.
+                           """
 
-        print(display_message)
+        rich.print(display_message)
         user_choice = cls.user_input()
         return user_choice
 
@@ -24,6 +26,46 @@ class View:
     def user_input(cls):
         choice = input("Votre choix: ")
         return choice
+        
+    @classmethod
+    def ask_for_player_infos(cls):
+        """
+            Demande les infos sur le joueur.
+
+            Returns:
+                tuple: un tuple d'infos
+        """
+
+        rich.print("-" * 100)
+
+        first_name = input("Entrer le prénom du joueur: ")
+        last_name = input("Entrer le nom du joueur: ")
+        chess_id = input("Entrer l'dentifiant Echecs: ")
+
+        birthday = dateparser.parse(
+            input("Entrer la date de naissance du joueur: "))
+        if birthday is None:
+            birthday = datetime.now()
+
+        return first_name, last_name, chess_id, birthday
+    
+    @classmethod
+    def finish_to_register_players_in_club(cls):
+        """Demande la saisie de joueurs à inscrire au club est finie
+        """
+        finish = input("voulez-vous inscrire un joueur ? (o/n) : " )       
+        return finish
+    
+    
+    @classmethod
+    def display_player(cls, player):
+        """Affiche le joueur.
+
+            Args:
+                player (Player): Un joueur
+        """
+        rich.print("-" * 100)
+        rich.print(player)
 
     @classmethod
     def request_tournament_infos(cls):
@@ -35,8 +77,8 @@ class View:
 
         """
 
-        print("Bonjour")
-        print("-----------------------------------")
+        rich.print("Bonjour")
+        rich.print("-" * 100)
 
         name_tournament = input("Entrer le Nom du tournoi: ")
         location = input("Entrer le lieu du tournoi: ")
@@ -60,11 +102,10 @@ class View:
 
     @classmethod
     def display_tournament(cls, tournament):
-        print("Tournoi -->", tournament)
+        rich.print("-" * 100)
+        rich.print(tournament)
 
-    @classmethod
-    def display_round(cls, round):
-        print("Tour -->", round)
+
 
     @classmethod
     def ask_number_of_players(cls):
@@ -76,37 +117,28 @@ class View:
             number_of_players = 1
 
         return number_of_players
+    
 
     @classmethod
-    def ask_for_player_infos(cls):
-        """
-            Demande les infos sur le joueur.
-
-            Returns:
-                tuple: un tuple d'infos
-        """
-
-        print("-----------------------------------")
-
-        first_name = input("Entrer le prénom du joueur: ")
-        last_name = input("Entrer le nom du joueur: ")
-        chess_id = input("Entrer l'dentifiant Echecs: ")
-
-        birthday = dateparser.parse(
-            input("Entrer la date de naissance du joueur: "))
-        if birthday is None:
-            birthday = datetime.now()
-
-        return first_name, last_name, chess_id, birthday
+    def display_round(cls, round):
+        rich.print("-" * 100)
+        rich.print(round)
 
     @classmethod
-    def display_player(cls, player):
-        """Affiche le joueur.
+    def go_on_tournament(cls):
+        rich.print("-" * 100)
+        rich.print("C'est parti pour le tournoi.")
 
-            Args:
-                player (Player): Un joueur
-        """
-        print("Player:\n", player)
+    @classmethod
+    def go_on_match(cls):
+        rich.print("-" * 100)
+        rich.print("Voici les matches du round: ") 
+
+    @classmethod
+    def display_round_matches(cls, i, match):
+        print(f"Match {i+1}")               
+        rich.print(match)  
+
 
     @classmethod
     def ask_for_report_choice(cls):
@@ -117,17 +149,17 @@ class View:
                            q - Quitter
                            """
 
-        print(display_message)
+        rich.print(display_message)
         user_choice = cls.user_input()
         return user_choice
 
     @classmethod
     def display_club_players(cls, players):
-        print("-----------------------------------")
-        print()
-        print("Liste des joueurs inscrits à notre club:")
+        rich.print("-----------------------------------")
+        rich.print()
+        rich.print("Liste des joueurs inscrits à notre club:")
         for player in players:
-            print(player)
+            rich.print(player)
 
     @classmethod
     def get_match_score(cls):
@@ -152,7 +184,8 @@ class View:
         Args:
             Match: Les composantes d'un match
         """
-        print("Match -->", match)
+        rich.print("-----------------------------------")
+        rich.print("Match -->", match)
 
 
 if __name__ == "__main__":
@@ -162,4 +195,8 @@ if __name__ == "__main__":
     #     # view.ask_for_player_infos()
     #     view.get_match_infos()
 
-    View.ask_for_report_choice()
+    # View.ask_for_report_choice()
+
+    # View.display_boot_menu()
+    # finish = View.finish_to_register_players_in_club()
+
