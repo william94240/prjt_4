@@ -11,10 +11,10 @@ class View:
     def display_boot_menu(cls):
         rich.print("-" * 100)
         display_message = """Que souhaitez-vous faire ?
-                              1 - Ajouter de(s) joueur(s) au club.
+                              1 - Ajouter un(des) joueur(s) au club.
                               2 - Créer et démarrer un tournoi.
-                              3 - Charger un tournoi.
-                              4 - Générer les rapports.
+                              3 - Générer les rapports.
+                              4 - Charger un tournoi.
                               q - Quitter.
                            """
 
@@ -40,7 +40,7 @@ class View:
 
         first_name = input("Entrer le prénom du joueur: ")
         last_name = input("Entrer le nom du joueur: ")
-        chess_id = input("Entrer l'dentifiant Echecs: ")
+        chess_id = input("Entrer l'identifiant Echecs: ")
 
         birthday = dateparser.parse(
             input("Entrer la date de naissance du joueur: "))
@@ -53,10 +53,9 @@ class View:
     def finish_to_register_players_in_club(cls):
         """Demande la saisie de joueurs à inscrire au club est finie
         """
-        finish = input("voulez-vous inscrire un joueur ? (o/n) : " )       
-        return finish
-    
-    
+        finish = input("voulez-vous inscrire un joueur ? (o/n) : ")
+        return finish   
+  
     @classmethod
     def display_player(cls, player):
         """Affiche le joueur.
@@ -84,7 +83,7 @@ class View:
         location = input("Entrer le lieu du tournoi: ")
 
         start_date = dateparser.parse(
-            input("Entrer la date de début du tournoi: "))
+            input("Entrer la date de début du tournoi(si vous ne saisisez rien la date en cours sera considerez comme date de début ): "))
         if start_date is None:
             # Replace with the appropriate default value
             start_date = datetime.now()
@@ -98,26 +97,34 @@ class View:
         nb_round = int(input("Entrer le nombre de tour du tournoi: "))
         description = input("Entrer la description du tournoi: ")
 
-        return (name_tournament, location, start_date, end_date, nb_round, description)
+        return (
+            name_tournament,
+            location, start_date,
+            end_date,
+            nb_round,
+            description
+                )
 
     @classmethod
     def display_tournament(cls, tournament):
         rich.print("-" * 100)
         rich.print(tournament)
 
-
-
     @classmethod
     def ask_number_of_players(cls):
         """Demande le nombre de joueurs à saisir
         """
         number_of_players = int(input(
-            "Combien de joueurs voulez-vous ajouter au tournoi ?"))
+            "Combien des joueurs voulez-vous ajouter au tournoi ?"))
         if number_of_players is None:
             number_of_players = 1
 
         return number_of_players
     
+    @classmethod
+    def go_on_tournament(cls):
+        rich.print("-" * 100)
+        rich.print("C'est parti pour le tournoi.")
 
     @classmethod
     def display_round(cls, round):
@@ -125,57 +132,64 @@ class View:
         rich.print(round)
 
     @classmethod
-    def go_on_tournament(cls):
+    def go_on_matches(cls, round_name):
         rich.print("-" * 100)
-        rich.print("C'est parti pour le tournoi.")
+        rich.print(f"Voici les matchs du {round_name}:\n") 
 
     @classmethod
-    def go_on_match(cls):
-        rich.print("-" * 100)
-        rich.print("Voici les matches du round: ") 
-
-    @classmethod
-    def display_round_matches(cls, i, match):
-        print(f"Match {i+1}")               
-        rich.print(match)  
-
+    def display_round_matches(cls, k, match):
+        rich.print(f"Match {k+1}>>>>>>")               
+        rich.print(match, "\n\n")
 
     @classmethod
     def ask_for_report_choice(cls):
         display_message = """Quel rapport souhaitez-vous obtenir ?
-                           1 - Afficher les joueurs inscrits au club 
-                           2 - Afficher la liste des tournois dejà orgnanisés
-                           3 - Afficher les joueurs inscrits à chaque tournoi
+                           1 - Afficher la liste de tous les joueurs inscrits 
+                                au club.
+                           2 - Afficher la liste des tournois dejà orgnanisés.                           
+                           3 - Rechercher un tournoi spécifique et Afficher 
+                                les informations associées.
+                           4 - Afficher la liste des joueurs du tournoi par 
+                                ordre alphabétique.
+                           5 - Afficher la liste de tous les tours du tournoi 
+                                et de tous les matchs du tour.
                            q - Quitter
                            """
 
-        rich.print(display_message)
-        user_choice = cls.user_input()
-        return user_choice
+        rich.print(display_message)        
+        report_choice = input("Votre choix: ")
+        return report_choice
 
     @classmethod
     def display_club_players(cls, players):
         rich.print("-----------------------------------")
         rich.print()
-        rich.print("Liste des joueurs inscrits à notre club:")
-        for player in players:
-            rich.print(player)
+        rich.print("Liste de tous les joueurs inscrits à notre club:", players)
+        
 
     @classmethod
-    def get_match_score(cls):
+    def set_player_score(cls, player_first_name, player1_last_name):
         """
-        Demande d'infos à saisir sur le match.
+        Demande le score du jouer.
 
         Returns:
-            : un tuple d'infos
+            : le score du jouer
         """
+        while True:
+            score_player = float(
+                input(
+                    f"Entrer le résultat de {player_first_name} {player1_last_name}"
+                    f"[valeur comprise entre (0, 0.5, 1)]: "
+                    )
+                                )
+            if score_player in [0, 0.5, 1]:
+                return score_player
+            else:
+                print("veuillez entrer un chiffre valide")
 
-        score_player_1 = float(
-            input("Entrer le résultat du premier joueur du match [valeur comprise entre (0, 0.5, 1)] : "))
-        score_player_2 = float(
-            input("Entrer le résultat du second joueur du match [valeur comprise entre (0, 0.5, 1)] : "))
-
-        return [score_player_1, score_player_2]
+    @classmethod
+    def display_score(cls, score):
+        rich.print(score)        
 
     @classmethod
     def display_match(cls, match):
@@ -186,6 +200,23 @@ class View:
         """
         rich.print("-----------------------------------")
         rich.print("Match -->", match)
+
+    @classmethod
+    def game_over(cls):
+        rich.print("Fin du tournoi")
+
+    @classmethod
+    def display_list_of_tournament(cls, list_of_tournaments):
+        rich.print("-----------------------------------")
+        rich.print()
+        rich.print("Liste des tournois déjà organisés par le club:", 
+                   list_of_tournaments)
+
+    @classmethod
+    def search_a_specific_tournament_informations(cls):
+        name_tournament = input("Entrer le nom du tournoi: ")
+
+        return name_tournament
 
 
 if __name__ == "__main__":

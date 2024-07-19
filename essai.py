@@ -122,9 +122,19 @@
 # print(pave.volume())
 
 
-import json
+# import json
 
-data = {"maison": "dua", "voiture": 4, "velo": 2, "moto": None, "avion": 0}
+# data = {"maison": "dua", "voiture": 4, "velo": 2, "moto": None, "avion": 0}
 
-with open("data.json","w") as file:
-    json.dump(data, file, indent=4)
+# with open("data.json","w") as file:
+#     json.dump(data, file, indent=4)
+# def fonction(arg="valeur par defaut"):
+#     print("Hello world")
+
+# s = (f"Les chaines Python sont automatiquement "
+#      f"concaténées par VM si elles sont "
+#      f"uniquement séparées par des espaces "
+#      f"ou des tabulations "
+#      f"ou des retours à la ligne "
+# )
+# print(s)
