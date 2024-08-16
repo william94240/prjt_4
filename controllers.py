@@ -36,7 +36,7 @@ class Controller:
                 cls.generate_report()
 
             # Quitter
-            elif user_choice == "q":
+            elif user_choice == "4":
                 exit()
 
     @staticmethod
@@ -56,6 +56,14 @@ class Controller:
             finish = View.finish_to_register_players_in_club()
             if finish != "o":
                 break
+
+    @staticmethod
+    def chess_id_exist(chess_id):
+        return Player.chess_id_exist(chess_id)
+
+    @staticmethod
+    def delete_player(chess_id):
+        Player.delete_player(chess_id)
 
     @classmethod
     def create_a_tournament(cls):
@@ -128,6 +136,10 @@ class Controller:
         tournament.save_tournament()
 
         return tournament
+
+    @staticmethod
+    def tournament_name_exist(name_tournament):
+        return Tournament.tournament_name_exist(name_tournament)
 
     @staticmethod
     def register_tournament_player(tournament: Tournament):
@@ -211,7 +223,7 @@ class Controller:
                 name_tournament)
             View.display_tournament_informations(*args)
 
-        elif report_choice == "q":
+        elif report_choice == "4":
             exit()
 
 
@@ -227,3 +239,6 @@ if __name__ == "__main__":
     # Controller.register_tournament_player()
     # Controller.generate_report()
     # Controller.create_a_tournament()
+    # Controller.delete_player("kkk")
+
+    print(Controller.tournament_name_exist("Hay"))

@@ -1,69 +1,5 @@
 [
     {
-        "first_name": "aaa",
-        "last_name": "aaaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-03",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-03",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "cccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-03",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-03",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "hhh",
-        "last_name": "hhh",
-        "chess_id": "hhh",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "iii",
-        "last_name": "iii",
-        "chess_id": "iii",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "jjj",
-        "last_name": "jjj",
-        "chess_id": "jjj",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "kkk",
-        "last_name": "kkk",
-        "chess_id": "kkk",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "eee",
         "last_name": "eee",
         "chess_id": "eee",
@@ -88,38 +24,6 @@
         "score_total": 0.0
     },
     {
-        "first_name": "hhh",
-        "last_name": "hhh",
-        "chess_id": "hhh",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "ddd",
         "last_name": "ddd",
         "chess_id": "ddd",
@@ -128,185 +32,9 @@
         "score_total": 0.0
     },
     {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "ddd",
         "last_name": "ddd",
         "chess_id": "ddd",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-04",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
         "birthday": "2024-07-04",
         "score": 0.0,
         "score_total": 0.0
@@ -328,130 +56,10 @@
         "score_total": 0.0
     },
     {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "ddd",
         "last_name": "ddd",
         "chess_id": "ddd",
         "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-05",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-12",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-12",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "cccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-12",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-12",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-18",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-18",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-18",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-18",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-18",
         "score": 0.0,
         "score_total": 0.0
     },
@@ -464,153 +72,9 @@
         "score_total": 0.0
     },
     {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "ddd",
         "last_name": "ddd",
         "chess_id": "ddd",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-07-19",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "cccc",
-        "chess_id": "ccc",
         "birthday": "2024-07-19",
         "score": 0.0,
         "score_total": 0.0
@@ -707,46 +171,6 @@
         "first_name": "ggg",
         "last_name": "ggg",
         "chess_id": "ggg",
-        "birthday": "2024-07-26",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "hhh",
-        "last_name": "hhh",
-        "chess_id": "hhh",
-        "birthday": "2024-07-26",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "iii",
-        "last_name": "iii",
-        "chess_id": "iii",
-        "birthday": "2024-07-26",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "iii",
-        "last_name": "iii",
-        "chess_id": "iii",
-        "birthday": "2024-07-26",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "jjj",
-        "last_name": "jjj",
-        "chess_id": "jjj",
-        "birthday": "2024-07-26",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "kk",
-        "last_name": "kkk",
-        "chess_id": "kkk",
         "birthday": "2024-07-26",
         "score": 0.0,
         "score_total": 0.0
@@ -936,38 +360,6 @@
         "score_total": 0.0
     },
     {
-        "first_name": "aaa",
-        "last_name": "aaa",
-        "chess_id": "aaa",
-        "birthday": "2024-08-01",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "bbb",
-        "last_name": "bbb",
-        "chess_id": "bbb",
-        "birthday": "2024-08-01",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ccc",
-        "last_name": "ccc",
-        "chess_id": "ccc",
-        "birthday": "2024-08-01",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "ddd",
-        "last_name": "ddd",
-        "chess_id": "ddd",
-        "birthday": "2024-08-01",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "eee",
         "last_name": "eee",
         "chess_id": "eee",
@@ -992,33 +384,9 @@
         "score_total": 0.0
     },
     {
-        "first_name": "hhh",
-        "last_name": "hhh",
-        "chess_id": "hhh",
-        "birthday": "2024-08-01",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "iii",
-        "last_name": "iii",
-        "chess_id": "jjj",
-        "birthday": "2024-08-02",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "jjj",
         "last_name": "jjj",
         "chess_id": "jjj",
-        "birthday": "2024-08-02",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "kkk",
-        "last_name": "kkk",
-        "chess_id": "kkk",
         "birthday": "2024-08-02",
         "score": 0.0,
         "score_total": 0.0
@@ -1035,30 +403,6 @@
         "first_name": "gogo",
         "last_name": "gogo",
         "chess_id": "gogo",
-        "birthday": "2024-08-02",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "iii",
-        "last_name": "iii",
-        "chess_id": "iii",
-        "birthday": "2024-08-02",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "jjj",
-        "last_name": "jjj",
-        "chess_id": "jjj",
-        "birthday": "2024-08-02",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "kkk",
-        "last_name": "kkk",
-        "chess_id": "kkk",
         "birthday": "2024-08-02",
         "score": 0.0,
         "score_total": 0.0
@@ -1312,14 +656,6 @@
         "score_total": 0.0
     },
     {
-        "first_name": "Adrien",
-        "last_name": "cini",
-        "chess_id": "AB006",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "Simon",
         "last_name": "cini",
         "chess_id": "AB007",
@@ -1339,14 +675,6 @@
         "first_name": "C\u00e9line",
         "last_name": "Cini",
         "chess_id": "AB005",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "Adrien",
-        "last_name": "Cini",
-        "chess_id": "AB006",
         "birthday": "2024-08-08",
         "score": 0.0,
         "score_total": 0.0
@@ -1376,33 +704,9 @@
         "score_total": 0.0
     },
     {
-        "first_name": "Adrien",
-        "last_name": "Cini",
-        "chess_id": "AB006",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "C\u00e9line",
         "last_name": "Cini",
         "chess_id": "AB005",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "Adrien",
-        "last_name": "Cini",
-        "chess_id": "AB006",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "Simon",
-        "last_name": "Cini",
-        "chess_id": "AB007",
         "birthday": "2024-08-08",
         "score": 0.0,
         "score_total": 0.0
@@ -1410,7 +714,7 @@
     {
         "first_name": "Gabriel",
         "last_name": "Cini",
-        "chess_id": "AB008",
+        "chess_id": "AB00008",
         "birthday": "2024-08-08",
         "score": 0.0,
         "score_total": 0.0
@@ -1419,14 +723,6 @@
         "first_name": "C\u00e9line",
         "last_name": "Cini",
         "chess_id": "AB005",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "Adrien",
-        "last_name": "Cini",
-        "chess_id": "AB006",
         "birthday": "2024-08-08",
         "score": 0.0,
         "score_total": 0.0
@@ -1456,14 +752,6 @@
         "score_total": 0.0
     },
     {
-        "first_name": "Adrien",
-        "last_name": "Cini",
-        "chess_id": "AB006",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
         "first_name": "Simon",
         "last_name": "Cini",
         "chess_id": "AB007",
@@ -1483,14 +771,6 @@
         "first_name": "C\u00e9line",
         "last_name": "Cini",
         "chess_id": "AB005",
-        "birthday": "2024-08-08",
-        "score": 0.0,
-        "score_total": 0.0
-    },
-    {
-        "first_name": "Adrien",
-        "last_name": "Cini",
-        "chess_id": "AB006",
         "birthday": "2024-08-08",
         "score": 0.0,
         "score_total": 0.0

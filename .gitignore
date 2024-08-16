@@ -1,2 +1,4 @@
 env/
 exemples/
+flake-report/
+.flake8

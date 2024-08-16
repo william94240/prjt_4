@@ -134,14 +134,71 @@ class Player:
 
         with open(file_path, mode="r", encoding="utf-8") as f:
             players_serialized = json.load(f)
+            # players = (
+            #     cls.player_deserialize(player_serialized).__str__(
+            #     ).replace("\n", " ")
+            #     for player_serialized in players_serialized
+            #           )
+            # players = sorted(players, key=lambda x: x.split()[3])
+
             players = (
-                cls.player_deserialize(player_serialized).__str__(
-                ).replace("\n", " ")
+                cls.player_deserialize(player_serialized)
                 for player_serialized in players_serialized
                       )
-            players = sorted(players, key=lambda x: x.split()[3])
+            players = sorted(players, key=lambda x: x.last_name)
+
+            # for player in players:
+            #     print("-"*50)
+            #     print(player)
 
         return players
+
+    @classmethod
+    def chess_id_exist(cls, chess_id):
+        """
+        Affiche les joueurs inscrits au club.
+        """
+
+        file_path = Path.cwd()/"data"/"club_players.json"
+
+        with open(file_path, mode="r", encoding="utf-8") as f:
+            players_serialized = json.load(f)
+
+            players = (
+                cls.player_deserialize(player_serialized)
+                for player_serialized in players_serialized
+                      )
+
+        for player in players:
+            if player.chess_id == chess_id:
+                return f"Le joueur:\n\n{player}\nExiste déjà"
+
+    @classmethod
+    def delete_player(cls, chess_id):
+        """
+        Supprime un joueur du club.
+        """
+        file_path = Path.cwd()/"data"/"club_players.json"
+
+        with open(file_path, mode="r", encoding="utf-8") as f:
+            players_serialized = json.load(f)
+
+            players = [
+                cls.player_deserialize(player_serialized)
+                for player_serialized in players_serialized
+                      ]
+
+        for player in players:
+            if player.chess_id == chess_id:
+                players.remove(player)
+
+        players_serialized = [
+            player.player_serialize()
+            for player in players
+            ]
+
+        with open(file_path, mode="w", encoding="utf-8") as f:
+            json.dump(players_serialized, f, indent=4)
 
 
 class Tournament:
@@ -326,10 +383,10 @@ class Tournament:
         with open(file_path, mode="r", encoding="utf-8") as f:
             tournaments_serialized = json.load(f)
 
-            tournaments = [cls.tournament_deserialize(tournament_serialized)
+            tournaments = (cls.tournament_deserialize(tournament_serialized)
                            for tournament_serialized in
                            tournaments_serialized
-                           ]
+                           )
 
             list_of_tournaments = sorted(tournaments,
                                          key=lambda x: x.name_tournament
@@ -348,52 +405,72 @@ class Tournament:
             tournaments_serialized = json.load(f)
 
             for tournament_serialized in tournaments_serialized:
-                # Cherche si le couple(name_tournament, name_tournament) est
+                # Cherche si le tuple(name_tournament, name_tournament) est
                 # dans tournament_serialized
                 if (("name_tournament", name_tournament) in
                         tournament_serialized.items()):
-
-                    # # Affichage des détails du tournoi.
-                    # tournament = cls.tournament_deserialize(
-                    #     tournament_serialized
-                    #     )
-
-                    # # Affichages des joueurs du tournoi.
-                    # players = [
-                    #     player.__str__().replace("\n", "  ") for
-                    #     player in tournament.players
-                    #           ]
-
-                    # # Affichages des rounds du tournoi.
-                    # rounds = [
-                    #     round.__str__().replace("\n", "  ") for
-                    #     round in tournament.rounds
-                    #           ]
-
-                    # # Affichage des matches du tournoi.
-                    # matches = [
-                    #     (round.round_name, round.matches) for round in
-                    #     tournament.rounds
-                    #     ]
-
-                    # Affichage des détails du tournoi.
                     tournament = cls.tournament_deserialize(
                         tournament_serialized
                         )
 
-                    # Affichages des joueurs du tournoi.
-                    players = [player for player in tournament.players]
+                    # Affichage des joueurs du tournoi.
+                    players = (player for player in tournament.players)
 
-                    # Affichages des rounds du tournoi.
-                    rounds = [round for round in tournament.rounds]
+                    # Affichage des rounds du tournoi.
+                    rounds = (round for round in tournament.rounds)
 
                     # Affichage des matches du tournoi.
-                    round_matches = [
+                    round_matches = (
                         (round.round_name, round.matches) for round in
                         tournament.rounds
-                        ]
+                        )
+
+        # print("*" * 100)
+        # print(f"Les informations sur le tournoi \"{tournament.name_tournament}\": --->\n")
+        # print(tournament)
+        # print("*" * 100)
+        # print(f"Les joueurs participants au tournoi \"{tournament.name_tournament}\": --->:\n")
+        # for player in players:
+        #     print(player)
+        #     print("-" * 30)
+        # print("*" * 100)
+        # print(f"Les rounds organisés dans le tournoi \"{tournament.name_tournament}\": --->\n")
+        # for round in rounds:
+        #     print(round)
+        #     print("-" * 30)
+        # print("*" * 100)
+        # print("Les matchs: --->\n")
+        # for round_match in round_matches:
+        #     print(round_match[0])
+        #     print("-" * 30)
+        #     for i, match in enumerate(round_match[1]):
+        #         print(f"Match {i+1}>>>>>>\n")
+        #         print(match)
+        #         print("-" * 30)
 
         return tournament, players, rounds, round_matches
+
+    @classmethod
+    def tournament_name_exist(cls, name_tournament):
+        """
+        Vérifie si le nom du tournoi existe déjà.
+        """
+        file_path = Path.cwd()/"data"/"tournaments.json"
+
+        with open(file_path, mode="r", encoding="utf-8") as f:
+            tournaments_serialized = json.load(f)
+
+            tournaments = (cls.tournament_deserialize(tournament_serialized)
+                           for tournament_serialized in tournaments_serialized
+                           )
+
+            for tournament in tournaments:
+                if tournament.name_tournament == name_tournament:
+                    return f"Le tournoi:\n\n{tournament}\nexiste déjà."
+
+            # for tournament_serialized in tournaments_serialized:
+            #     if ("name_tournament", name_tournament) in tournament_serialized.items():
+            #         return f"Le tournoi \"{name_tournament}\" existe déjà."
 
 
 class Round:
@@ -507,16 +584,6 @@ class Match:
         self.player_1 = player_1
         self.player_2 = player_2
 
-    # def __str__(self):
-    #     """
-    #     Méthode pour afficher les détails du match
-    #     """
-
-    #     return (
-    #         f"Joueur 1: {self.player_1.__str__()}\n"
-    #         f"::::CONTRE::::\n"
-    #         f"Joueur 2: {self.player_2.__str__()}\n\n"
-    #         )
     def __str__(self):
         """
         Méthode pour afficher les détails du match
@@ -602,7 +669,7 @@ if __name__ == "__main__":
     # tournament1_serialized = tournament_1.tournament_serialize()
     # print(tournament1_serialized)
     # tournament1_deserialized = Tournament.tournament_deserialize(
-        # tournament1_serialized)
+    #     tournament1_serialized)
     # print(tournament1_deserialized)
     # tournement_player1 = tournament_1.add_tournament_player(player1)
     # tournament_1.save_tournament()
@@ -630,8 +697,12 @@ if __name__ == "__main__":
     # tournament_1.whos_won()
     # Tournament.display_list_of_tournament()
     # Tournament.search_a_specific_tournament_informations("Hay")
-    match = Match(player1, player2)
-    print(match)
 
+    # print(Player.chess_id_exist("iii"))
+    # Player.delete_player("iii")
 
+    # print(Tournament.tournament_name_exist("Hay"))
+    # Player.display_club_players()
+    # Tournament.display_list_of_tournament()
+    Tournament.search_a_specific_tournament_informations("Hay")
 

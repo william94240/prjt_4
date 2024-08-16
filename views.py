@@ -1,6 +1,8 @@
 import dateparser
-from datetime import datetime
 import rich
+from rich.prompt import Prompt
+import re
+from datetime import datetime
 
 
 class View:
@@ -18,7 +20,7 @@ class View:
                               1 - Ajouter un(des) joueur(s) au club.
                               2 - Créer et démarrer un tournoi.
                               3 - Générer les rapports.
-                              q - Quitter.
+                              4 - Quitter.
                            """
 
         rich.print(display_message)
@@ -28,8 +30,12 @@ class View:
     @staticmethod
     def user_input():
         """Demande le choix de l'utilisateur."""
-        choice = input("Votre choix: ")
-        return choice
+        while True:
+            choice = Prompt.ask("Votre choix ", default="2")
+            if choice in ["1", "2", "3", "4"]:
+                return choice
+            else:
+                rich.print(f"'{choice}' n'est pas valide.Veuillez effectuer un choix dans (1, 2, 3, 4)")
 
     @staticmethod
     def ask_for_player_infos():
@@ -42,14 +48,69 @@ class View:
 
         rich.print("-" * 100)
 
-        first_name = input("Entrer le prénom du joueur: ")
-        last_name = input("Entrer le nom du joueur: ")
-        chess_id = input("Entrer l'identifiant Echecs: ")
+        from controllers import Controller
 
-        birthday = dateparser.parse(
-            input("Entrer la date de naissance du joueur: "))
-        if birthday is None:
-            birthday = datetime.now()
+        while True:
+            chess_id = Prompt.ask("Entrer l'identifiant Echecs ")
+            regex_chess_id = r"^[A-Z]{2}[0-9]{5}$"
+            regex_chess_id_compile = re.compile(regex_chess_id)
+
+            if (re.match(regex_chess_id_compile, chess_id)):
+                break
+            else:
+                rich.print(
+                    f"le format de {chess_id} n'est pas conforme"
+                    f" à l'identifiant national d’échecs: ex. type: AB12345"
+                    )
+
+        chess_id_exist = Controller.chess_id_exist(chess_id)
+        if chess_id_exist:
+            rich.print(chess_id_exist)
+            rich.print("Voulez-vous redéfinir le joueur ?")
+            response = Prompt.ask("o/n ", default="o")
+            if response == "o":
+                # delete the player et continuer la saisie
+                Controller.delete_player(chess_id)
+            else:
+                exit()
+
+        while True:
+            first_name = Prompt.ask("Entrer le prénom du joueur ")
+            regex_first_name = r"^[A-Za-z &'-éè`àùç\^\']+$"
+            regex_first_name_compile = re.compile(regex_first_name)
+
+            if (re.match(regex_first_name_compile, first_name)):
+                break
+            else:
+                rich.print(
+                    f"le format de '{first_name}' n'est pas conforme"
+                    f" au prénom: ex. type: Jean, Jean-Charles..."
+                    )
+
+        while True:
+            last_name = Prompt.ask("Entrer le nom du joueur ")
+            regex_last_name = r"^[A-Za-z &'-éè`àùç\^\']+$"
+            regex_last_name_compile = re.compile(regex_last_name)
+
+            if (re.match(regex_last_name_compile, last_name)):
+                break
+            else:
+                rich.print(
+                    f"le format de '{last_name}' n'est pas conforme"
+                    f" au nom: ex. type: Mounier, Moulin-Molinarie..."
+                    )
+
+        while True:
+            entry = Prompt.ask("Entrer la date de naissance du joueur ")
+            birthday = dateparser.parse(entry)
+            if birthday is not None:
+                break
+            rich.print(
+                    f"le format de date '{entry}' n'est pas conforme"
+                    f" aux formats prédéfinis: ex. type: 1990-01-01,"
+                    f" 01/01/1990,  lundi, mardi, aujourd'hui, demain,"
+                    f" 30 juillet 2021, 30 juillet 21 ..."
+                    )
 
         return (first_name,
                 last_name,
@@ -66,9 +127,9 @@ class View:
 
     @staticmethod
     def finish_to_register_players_in_club():
-        """Demande la saisie de joueurs à inscrire au club est finie
+        """Vérifie si l'inscription des jouers est terminée.
         """
-        finish = input("voulez-vous inscrire un joueur ? (o/n) : ")
+        finish = Prompt.ask("voulez-vous inscrire un joueur ? (o/n) ", default="o")
         return finish
 
     @staticmethod
@@ -83,32 +144,125 @@ class View:
 
         rich.print("-" * 100)
 
-        name_tournament = input("Entrer le nom du tournoi: ")
-        location = input("Entrer le lieu du tournoi: ")
+        from controllers import Controller
 
-        start_date = dateparser.parse(
-            input(
+        while True:
+            name_tournament = Prompt.ask("Entrer le nom du tournoi ")
+            regex_name_tournament = r"^[A-Za-z0-9 !\"#\$%&'\(\)*+-éè`àùç/:<=>@\\\^_~\"\'\|\./§]+$"
+            regex_name_tournament_compile = re.compile(regex_name_tournament)
+            if (re.match(regex_name_tournament_compile, name_tournament)):
+                tournament_name_exist = Controller.tournament_name_exist(name_tournament)
+                if not tournament_name_exist:
+                    break
+                else:
+                    rich.print(tournament_name_exist)
+                    rich.print("Vous devez saisir un nouveau nom de tournoi.")
+                    continue
+            else:
+                rich.print(
+                    f"le format de {name_tournament} n'est pas conforme"
+                    f" au nom du tournoi: ex. type: Tournoi de Paris #1,"
+                    f" Tournoi de Lyon(parilly)..."
+                    )
+
+        while True:
+            location = Prompt.ask("Entrer le lieu du tournoi ")
+            regex_location = r"^[A-Za-z0-9 #&'\(\),-éè`àùç/:@\\\^_~\"\'\./§]+$"
+            regex_location_compile = re.compile(regex_location)
+            if (re.match(regex_location_compile, location)):
+                break
+            else:
+                rich.print(
+                    f"le format de '{location}' n'est pas conforme"
+                    f" au nom du lieu du tournoi: ex. type: Paris, Lyon..."
+                    )
+
+        while True:
+            entry = Prompt.ask(
                 """
                 Entrer la date de début du tournoi
-                (si vous ne saisisez rien, la date en cours sera
-                considerez comme date de début du tournoi). ):
+                - si vous ne saisisez rien, la date en cours sera
+                considerez comme date de début du tournoi
+                """,
+                default=datetime.now().strftime("%Y-%m-%d")
+                                )
+
+            start_date = dateparser.parse(entry)
+            if start_date is not None:
+                break
+            else:
+                rich.print(
+                    f"le format de date '{entry}' n'est pas conforme"
+                    f" aux formats prédéfinis: ex. type: 1990-01-01,"
+                    f" 01/01/1990,  lundi, mardi, aujourd'hui, demain,"
+                    f" 30 juillet 2021, 30 juillet 21 ..."
+                            )
+                # response = input(
+                #     "Voulez-vous que la date d'aujourd'hui soit considéreé comme date de début du tournoi ? (o/n): "
+                #                 )
+                # if response == "o":
+                #     # Prendre la date en cours pour date de début du tournoi.
+                #     start_date = datetime.now()
+                #     break
+
+        while True:
+            entry = Prompt.ask(
                 """
-                )
-                                    )
+                Entrer la date de fin du tournoi
+                -si vous ne saisisez rien, la date en cours sera
+                considerez comme date de fin du tournoi
+                """,
+                default=datetime.now().strftime("%Y-%m-%d")
+                        )
 
-        if start_date is None:
-            # Remplacer par la date en cours par défaut.
-            start_date = datetime.now()
+            end_date = dateparser.parse(entry)
+            if end_date is not None:
+                break
+            else:
+                rich.print(
+                    f"le format de date {entry} n'est pas conforme"
+                    f" aux formats prédéfinis: ex. type: 1990-01-01,"
+                    f" 01/01/1990,  lundi, mardi, aujourd'hui, demain,"
+                    f" 30 juillet 2021, 30 juillet 21 ..."
+                    )
+                # response = input(
+                #     "Voulez-vous que la date d'aujourd'hui soit considéreé comme date de fin du tournoi ? (o/n): "
+                #                 )
+                # if response == "o":
+                #     # Prendre la date en cours pour date de fin du tournoi.
+                #     end_date = datetime.now()
+                #     break
 
-        end_date = dateparser.parse(
-            input("Entrer la date de fin du tournoi: ")
-                                    )
-        if end_date is None:
-            # Remplacer par la date en cours par défaut.
-            end_date = datetime.now()
+        while True:
+            nb_round = Prompt.ask("Entrer le nombre de tour du tournoi ", default="4")
+            if nb_round.isdigit():
+                nb_round = int(nb_round)
+                break
+            else:
+                rich.print(
+                    f"'{nb_round}' n'est pas un nombre entier."
+                    f" Le nombre de tour du tournoi doivent être de type: 4, 5, 6...")
 
-        nb_round = int(input("Entrer le nombre de tour du tournoi: "))
-        description = input("Entrer la description du tournoi: ")
+        while True:
+            description = Prompt.ask("Entrer la description du tournoi ", default="R.a.s")
+            regex_description = r"^[A-Za-z0-9 !\"#\$%&'\(\)*+,-éè`àùç/:;<=>?@\[\]\\\^_{}~²\"\'\|£¤€?\./§]+$"
+            # regex_description = (
+            #     r"^[A-Za-z0-9\ !\"#$%&'()*+,-/:;<=>?@[\^_{|}~\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5"
+            #     r"\u00C6\u00C7\u00C8\u00C9\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D0\u00D1\u00D2"
+            #     r"\u00D3\u00D4\u00D5\u00D6\u00D8\u00D9\u00DA\u00DB\u00DC\u00DD\u00DF\u00E0\u00E1"
+            #     r"\u00E2\u00E3\u00E4\u00E5\u00E6\u00E7\u00E8\u00E9\u00EA\u00EB\u00EC\u00ED\u00EE"
+            #     r"\u00EF\u00F0\u00F1\u00F2\u00F3\u00F4\u00F5\u00F6\u00F9\u00FA\u00FB\u00FC\u00FD"
+            #     r"\u00FF\u0153]+$"
+            #                     )
+            regex_description_compile = re.compile(regex_description)
+            if (re.match(regex_description_compile, description)):
+                break
+            else:
+                rich.print(
+                    f"le format de \"{description}\" n'est pas conforme"
+                    f" à la description du tournoi: ex. type: Tournoi de Paris sénior #1,"
+                    f" Tournoi de Lyon(parilly) junior quart de finale ..."
+                    )
 
         return (
             name_tournament,
@@ -129,14 +283,15 @@ class View:
     def ask_number_of_players():
         """Demande le nombre de joueurs à saisir
         """
-        number_of_players = int(input(
-            "Combien des joueurs voulez-vous ajouter au tournoi ?: "
-                                    )
-                                )
-        if number_of_players is None:
-            number_of_players = 1
-
-        return number_of_players
+        while True:
+            try:
+                number_of_players = int(Prompt.ask(
+                    "Combien des joueurs voulez-vous ajouter au tournoi ?"
+                                                  )
+                                        )
+                return number_of_players
+            except ValueError:
+                rich.print("Veuillez entrer un nombre correct des joueurs")
 
     @staticmethod
     def go_on_tournament():
@@ -159,17 +314,15 @@ class View:
     @staticmethod
     def display_round_matches(matches_round):
         """Affiche les matchs du round."""
-        # rich.print(f"Match {k+1}>>>>>>")
         for k, match_round in enumerate(matches_round):
             rich.print(f"Match {k+1}>>>>>>")
             rich.print(match_round)
-        # rich.print(matches, "\n\n")
 
     @staticmethod
     def want_enter_the_scores_of_the_matches():
         """Demande si vous voulez saisir les scores des matchs."""
         rich.print("-" * 100)
-        response = input("Voulez-vous saisir les scores des matchs ?(o/n): ")
+        response = Prompt.ask("Voulez-vous saisir les scores des matchs ?(o/n) ", default="o")
         rich.print("")
         return response
 
@@ -182,17 +335,17 @@ class View:
             : le score du jouer
         """
         while True:
-            score_player = float(
-                input(
-                    f"Entrer le résultat de {player_first_name} "
-                    f"{player_last_name} "
-                    f"[valeur doit être comprise entre (0, 0.5, 1)]: "
-                    )
-                                )
-            if score_player in [0, 0.5, 1]:
+            score_player = Prompt.ask(
+                f"""
+                Entrer le résultat de '{player_first_name} {player_last_name}'
+                [La valeur doit être comprise entre (0, 0.5, 1)]
+                """
+                                    )
+            if score_player in ["0", "0.5", "1"]:
+                score_player = float(score_player)
                 return score_player
             else:
-                print("veuillez entrer un chiffre valide")
+                rich.print("veuillez entrer un chiffre valide compris dans [0, 0.5, 1]")
 
     @staticmethod
     def display_score(round_name, k,  score):
@@ -203,7 +356,6 @@ class View:
     @staticmethod
     def display_match(match):
         """Affiche le joueur.
-
         Args:
             Match: Les composantes d'un match
         """
@@ -213,12 +365,13 @@ class View:
     @staticmethod
     def display_winner(winner):
         """Affiche le gagnant du tournoi."""
-        rich.print("-" * 100)
+        rich.print("*" * 100)
         rich.print("La liste des resultats du tournoi suivant l'ordre "
                    "décroissant des scores est:\n"
                    )
         for player in winner:
             rich.print(player)
+            rich.print("-" * 100)
 
         rich.print(f"***** Le Vainqeur du tournoi est: *****\n{winner[0]}")
 
@@ -236,11 +389,11 @@ class View:
                            2 - Afficher la liste des tournois dejà orgnanisés.
                            3 - Rechercher un tournoi spécifique et Afficher
                                les informations associées.
-                           q - Quitter
+                           4 - Quitter
                            """
 
         rich.print(display_message)
-        report_choice = input("Votre choix: ")
+        report_choice = Prompt.ask("Votre choix ", default="2")
         return report_choice
 
     @staticmethod
@@ -251,19 +404,21 @@ class View:
         rich.print("Liste de tous les joueurs inscrits à notre club: ")
         for player in players:
             rich.print(player)
+            rich.print("-"*50)
 
     @staticmethod
     def display_list_of_tournament(list_of_tournaments):
         """Affiche la liste des tournois déjà organisés par le club."""
-        rich.print("-" * 100)
+        rich.print("*" * 100)
         rich.print("Liste des tournois déjà organisés par le club: \n")
         for tournament in list_of_tournaments:
             rich.print(tournament)
+            rich.print("-"*50)
 
     @staticmethod
     def search_a_specific_tournament_name():
         """Demande le nom du tournoi à rechercher."""
-        name_tournament = input("Entrer le nom du tournoi: ")
+        name_tournament = Prompt.ask("Entrer le nom du tournoi ")
 
         return name_tournament
 
@@ -272,31 +427,28 @@ class View:
             tournament, players, rounds, round_matches
                                         ):
         """Affiche les informations du tournoi."""
-        rich.print("-" * 100)
-        rich.print("Le tournoi: --->\n")
+        rich.print("*" * 100)
+        rich.print(f"Les informations sur le tournoi \"{tournament.name_tournament}\": --->\n")
         rich.print(tournament)
-        rich.print("-" * 100)
-        rich.print("Les joueurs: --->:\n")
+        rich.print("*" * 100)
+        rich.print(f"Les joueurs participants au tournoi \"{tournament.name_tournament}\": --->:\n")
         for player in players:
             rich.print(player)
-        rich.print("-" * 100)
-        rich.print("Les rounds: --->\n")
+            rich.print("-" * 30)
+        rich.print("*" * 100)
+        rich.print(f"Les rounds organisés dans le tournoi \"{tournament.name_tournament}\": --->\n")
         for round in rounds:
             rich.print(round)
-        rich.print("-" * 100)
-        rich.print("Les matchs: --->\n")
+            rich.print("-" * 30)
+        rich.print("*" * 100)
+        rich.print("Les matchs composants les rounds: --->\n")
         for round_match in round_matches:
             rich.print(round_match[0])
+            rich.print("-" * 30)
             for i, match in enumerate(round_match[1]):
-                rich.print(f"Match {i+1}>>>>>>")
-                rich.print(match.player_1)
-                rich.print("--CONTRE--\n")
-                rich.print(match.player_2)
-
-
-
-            # rich.print(match[1])
-
+                rich.print(f"Match {i+1}>>>>>>\n")
+                rich.print(match)
+                rich.print("-" * 30)
 
 if __name__ == "__main__":
     """Tests
@@ -311,4 +463,10 @@ if __name__ == "__main__":
     # finish = View.finish_to_register_players_in_club()
     # View.display_winner()
     # View.display_club_players()
+    # View.user_input()
 
+    # View.ask_for_player_infos()
+    # print(View.request_tournament_infos())
+    # print(View.ask_number_of_players())
+    # View.user_input()
+    print(View.set_player_score("william", "Mopete"))
