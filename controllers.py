@@ -39,8 +39,8 @@ class Controller:
             elif user_choice == "4":
                 exit()
 
-    @staticmethod
-    def get_club_player():
+    @classmethod
+    def get_club_player(cls):
         """Inscrit un joueur au club.
 
         Returns:
@@ -49,17 +49,23 @@ class Controller:
 
         while True:
             player_data = View.ask_for_player_infos()
+            chess_id = player_data[2]
+            if Player.chess_id_exist(chess_id):
+                player = Player.chess_id_exist(chess_id)
+                response = View.chess_id_exist(player)
+                if response:
+                    # delete the player et continuer la saisie
+                    cls.delete_player(chess_id)
             player = Player(*player_data)
             View.display_player(player)
             player.save_club_player()
-
             finish = View.finish_to_register_players_in_club()
             if finish != "o":
                 break
 
-    @staticmethod
-    def chess_id_exist(chess_id):
-        return Player.chess_id_exist(chess_id)
+    # @staticmethod
+    # def chess_id_exist(chess_id):
+    #     return Player.chess_id_exist(chess_id)
 
     @staticmethod
     def delete_player(chess_id):
@@ -85,8 +91,6 @@ class Controller:
         for i in range(0, nb_round):
             round_name = f"Round {i + 1}"
             round = Round(round_name)
-            # View.display_round(round)
-            # View.go_on_matches(round_name)
 
             if round_name == "Round 1":
                 # Au premier tour, mélanger directement les joueurs.
@@ -94,7 +98,6 @@ class Controller:
 
             else:
                 # Pour les autres tours, trier les joueurs par score_total.
-
                 players = sorted(
                     players,
                     key=lambda x: x.score_total,
@@ -112,13 +115,8 @@ class Controller:
                 matches_round.append(match)
                 round.matches.extend(matches_round)
 
-            # tournament.rounds.append(round)
-
             View.go_on_matches(round_name)
             View.display_round_matches(matches_round)
-            # for k, match in enumerate(matches_round):
-            #     "Affiche les matchs du round."
-            #     View.display_round_matches(matches_round)
 
             response = View.want_enter_the_scores_of_the_matches()
             if response == "o":
@@ -126,14 +124,14 @@ class Controller:
             else:
                 exit()
 
-        # cls.get_display_scores(tournament, round)
             round.round_finished()
             tournament.rounds.append(round)
+            tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
 
         winner = tournament.whos_won()
         View.display_winner(winner)
         tournament.tournament_finished()
-        tournament.save_tournament()
+        tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
 
         return tournament
 
@@ -141,24 +139,37 @@ class Controller:
     def tournament_name_exist(name_tournament):
         return Tournament.tournament_name_exist(name_tournament)
 
-    @staticmethod
-    def register_tournament_player(tournament: Tournament):
+    @classmethod
+    def register_tournament_player(cls, tournament: Tournament):
         """Saisie un joueur pour le tournoi.
 
         Returns:
             None.
          """
+        tournament.nb_player = View.ask_number_of_players()
 
-        number_of_players = View.ask_number_of_players()
-
-        for i in range(0, number_of_players):
+        for i in range(0, tournament.nb_player):
             player_data = View.ask_for_player_infos()
             player = Player(*player_data)
+            chess_id = player_data[2]
+            player_exist = Player.chess_id_exist(chess_id)
+
+            if player_exist:
+                player_redefinition = View.chess_id_exist(player_exist)
+                if player_redefinition:
+                    # delete the player et continuer la saisie
+                    cls.delete_player(chess_id)
+
+                else:
+                    # delete the player et le resaisir
+                    cls.delete_player(chess_id)
+                    player = player_exist
+
             View.display_player(player)
             tournament.players.append(player)
-
             # Sauvegarde également le joueur dans le club.
             player.save_club_player()
+            tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
 
     @staticmethod
     def get_display_scores(round_name, matches_round):
@@ -196,7 +207,58 @@ class Controller:
                     )
 
             View.display_score(round_name, k,  score)
-            # round.round_finished()
+
+    @classmethod
+    def resume_tournament(cls):
+        """Reprendre un tournoi non incomplet.
+        """
+        tournament = Tournament.extract_tournament()
+        if tournament.nb_round_in_progress < tournament.nb_round:
+            if tournament.nb_player_in_progress < tournament.nb_player:
+            cls.register_tournament_player(tournament)
+            View.go_on_tournament()
+            players = tournament.players
+            nb_round = tournament.nb_round
+
+            for i in range(Tournament.nb_round_in_progress, nb_round):
+                round_name = f"Round {i + 1}"
+                round = Round(round_name)
+
+                if round_name == "Round 1":
+                    # Au premier tour, mélanger directement les joueurs.
+                    random.shuffle(players)
+
+                else:
+                    # Pour les autres tours, trier les joueurs par score_total.
+                    players = sorted(
+                        players,
+                        key=lambda x: x.score_total,
+                        reverse=True
+                                    )
+
+                matches_round = []
+                for j in range(0, len(players), 2):
+                    player_1 = players[j]
+                    player_2 = players[j+1]
+                    match = Match(
+                        player_1,
+                        player_2
+                                )
+                    matches_round.append(match)
+                    round.matches.extend(matches_round)
+
+                View.go_on_matches(round_name)
+                View.display_round_matches(matches_round)
+
+                response = View.want_enter_the_scores_of_the_matches()
+                if response == "o":
+                    cls.get_display_scores(round_name, matches_round)
+                else:
+                    exit()
+
+                round.round_finished()
+                tournament.rounds.append(round)
+                tournament.save_tournament()
 
     @staticmethod
     def generate_report():

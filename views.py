@@ -48,7 +48,7 @@ class View:
 
         rich.print("-" * 100)
 
-        from controllers import Controller
+        # from contr1ollers import Controller
 
         while True:
             chess_id = Prompt.ask("Entrer l'identifiant Echecs ")
@@ -63,16 +63,16 @@ class View:
                     f" à l'identifiant national d’échecs: ex. type: AB12345"
                     )
 
-        chess_id_exist = Controller.chess_id_exist(chess_id)
-        if chess_id_exist:
-            rich.print(chess_id_exist)
-            rich.print("Voulez-vous redéfinir le joueur ?")
-            response = Prompt.ask("o/n ", default="o")
-            if response == "o":
-                # delete the player et continuer la saisie
-                Controller.delete_player(chess_id)
-            else:
-                exit()
+        # chess_id_exist = Controller.chess_id_exist(chess_id)
+        # if chess_id_exist:
+        #     rich.print(chess_id_exist)
+        #     rich.print("Voulez-vous redéfinir le joueur ?")
+        #     response = Prompt.ask("o/n ", default="o")
+        #     if response == "o":
+        #         # delete the player et continuer la saisie
+        #         Controller.delete_player(chess_id)
+        #     else:
+        #         exit()
 
         while True:
             first_name = Prompt.ask("Entrer le prénom du joueur ")
@@ -117,6 +117,18 @@ class View:
                 chess_id,
                 birthday
                 )
+
+    @staticmethod
+    def chess_id_exist(player):
+        """message si l'identifiant existe déjà.
+        """
+        rich.print(f"Le joueur:\n\n{player}\nExiste déjà.")
+        rich.print("Voulez-vous redéfinir le joueur ?")
+        response = Prompt.ask("o/n ", default="o")
+        if response == "o":
+            # delete the player et continuer la saisie
+            return True
+        
 
     @staticmethod
     def display_player(player):
@@ -242,27 +254,8 @@ class View:
                 rich.print(
                     f"'{nb_round}' n'est pas un nombre entier."
                     f" Le nombre de tour du tournoi doivent être de type: 4, 5, 6...")
-
-        while True:
-            description = Prompt.ask("Entrer la description du tournoi ", default="R.a.s")
-            regex_description = r"^[A-Za-z0-9 !\"#\$%&'\(\)*+,-éè`àùç/:;<=>?@\[\]\\\^_{}~²\"\'\|£¤€?\./§]+$"
-            # regex_description = (
-            #     r"^[A-Za-z0-9\ !\"#$%&'()*+,-/:;<=>?@[\^_{|}~\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5"
-            #     r"\u00C6\u00C7\u00C8\u00C9\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D0\u00D1\u00D2"
-            #     r"\u00D3\u00D4\u00D5\u00D6\u00D8\u00D9\u00DA\u00DB\u00DC\u00DD\u00DF\u00E0\u00E1"
-            #     r"\u00E2\u00E3\u00E4\u00E5\u00E6\u00E7\u00E8\u00E9\u00EA\u00EB\u00EC\u00ED\u00EE"
-            #     r"\u00EF\u00F0\u00F1\u00F2\u00F3\u00F4\u00F5\u00F6\u00F9\u00FA\u00FB\u00FC\u00FD"
-            #     r"\u00FF\u0153]+$"
-            #                     )
-            regex_description_compile = re.compile(regex_description)
-            if (re.match(regex_description_compile, description)):
-                break
-            else:
-                rich.print(
-                    f"le format de \"{description}\" n'est pas conforme"
-                    f" à la description du tournoi: ex. type: Tournoi de Paris sénior #1,"
-                    f" Tournoi de Lyon(parilly) junior quart de finale ..."
-                    )
+       
+        description = Prompt.ask("Entrer la description du tournoi ", default="R.a.s")
 
         return (
             name_tournament,
@@ -287,11 +280,16 @@ class View:
             try:
                 number_of_players = int(Prompt.ask(
                     "Combien des joueurs voulez-vous ajouter au tournoi ?"
-                                                  )
+                                                    )
                                         )
-                return number_of_players
+                if number_of_players and number_of_players % 2 == 0:
+                    print(number_of_players)
+                    return number_of_players
+                else:
+                    rich.print("Veuillez entrer un nombre pair de joueurs")
+                    continue
             except ValueError:
-                rich.print("Veuillez entrer un nombre correct des joueurs")
+                rich.print("Veuillez entrer un nombre pair de joueurs")
 
     @staticmethod
     def go_on_tournament():
@@ -450,6 +448,7 @@ class View:
                 rich.print(match)
                 rich.print("-" * 30)
 
+
 if __name__ == "__main__":
     """Tests
     """
@@ -469,4 +468,5 @@ if __name__ == "__main__":
     # print(View.request_tournament_infos())
     # print(View.ask_number_of_players())
     # View.user_input()
-    print(View.set_player_score("william", "Mopete"))
+    # print(View.set_player_score("william", "Mopete"))
+    View.ask_number_of_players()

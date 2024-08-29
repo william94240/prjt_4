@@ -6,7 +6,7 @@ import json
 class Player:
     """
     Le joueur : Définit l'état du joueur et ses comportements à travers
-    ses méthodes.
+    les méthodes.
     """
 
     def __init__(
@@ -101,19 +101,8 @@ class Player:
 
     def save_club_player(self):
         """Sauvegarde le joueur dans un fichier json.
-
-        Returns:
-            _type_: None
         """
-
-        folder_path = Path.cwd()/"data"
-        file_path = folder_path/"club_players.json"
-
-        if not file_path.exists():
-            folder_path.mkdir(parents=True, exist_ok=True)
-            file_path.touch()
-            with open(file_path, mode="w", encoding="utf-8") as f:
-                json.dump([], f)
+        file_path = Path.cwd()/"data"/"club_players.json"
 
         with open(file_path, mode="r", encoding="utf-8") as f:
             players = json.load(f)
@@ -158,7 +147,6 @@ class Player:
         """
         Affiche les joueurs inscrits au club.
         """
-
         file_path = Path.cwd()/"data"/"club_players.json"
 
         with open(file_path, mode="r", encoding="utf-8") as f:
@@ -171,7 +159,7 @@ class Player:
 
         for player in players:
             if player.chess_id == chess_id:
-                return f"Le joueur:\n\n{player}\nExiste déjà"
+                return player
 
     @classmethod
     def delete_player(cls, chess_id):
@@ -204,17 +192,21 @@ class Player:
 class Tournament:
 
     """
-    Le tournoi: Fournit les caractéristiques de chaque instance du tournoi.
+    Le tournoi: Fournis les caractéristiques de chaque instance du tournoi.
     """
     # Liste des tournois.
     tournaments = []
+    # nombre de tours en cours
+    nb_round_in_progress = 0
+    # nombre de joueurs en cours de saisie
+    nb_player_in_progress = 0
 
     def __init__(
                  self,
                  name_tournament: str,
                  location: str,
                  start_date: datetime = datetime.now(),
-                 end_date: datetime = None,
+                 end_date: datetime = datetime.now(),
                  nb_round: int = 4,
                  description: str = ""
                 ):
@@ -238,9 +230,12 @@ class Tournament:
         self.description = description
         self.players = []
         self.rounds = []
+        self.nb_player = 0
+        self.nb_round_in_progress = Tournament.nb_round_in_progress
+        self.nb_player_in_progress = Tournament.nb_player_in_progress
 
     def __repr__(self):
-        """Méthode pour une representation interne du tournoi
+        """Méthode pour une représentation interne du tournoi
 
         Returns:
             str: reprensente les details sur le joueur.
@@ -253,8 +248,11 @@ class Tournament:
                 f'"end_date": {self.end_date}, '
                 f'"nb_round": {self.nb_round}, '
                 f'"description": {self.description} '
+                f'"nb_player": {self.nb_player}, '
+                f'"nb_round_in_progress": {self.nb_round_in_progress}, '
+                f'"nb_player_in_progress": {self.nb_player_in_progress}, '
+                f'"rounds": {self.rounds}, '
                 f'"players": {self.players} '
-                f'"rounds": {self.rounds} '
                 )
 
     def __str__(self):
@@ -282,16 +280,19 @@ class Tournament:
         tournament_serialized = {
             "name_tournament": self.name_tournament,
             "location": self.location,
-            "start_date": (self.start_date.strftime("%Y-%m-%d") if
+            "start_date": (self.start_date.strftime("%Y-%m-%d %H:%M:%S") if
                            self.start_date is not None else "null"
                            ),
-            "end_date": (self.end_date.strftime("%Y-%m-%d") if self.end_date
+            "end_date": (self.end_date.strftime("%Y-%m-%d %H:%M:%S") if self.end_date
                          is not None else "null"
                          ),
             "nb_round": self.nb_round,
             "description": self.description,
-            "players": self.players,
-            "rounds": self.rounds
+            "nb_player": self.nb_player,
+            "nb_round_in_progress": self.nb_round_in_progress,
+            "nb_player_in_progress": self.nb_player_in_progress,
+            "rounds": self.rounds,
+            "players": self.players
                                 }
 
         tournament_serialized["players"] = [
@@ -310,24 +311,28 @@ class Tournament:
         """
         Restaure le tournoi sous sa forme objet.
         """
+        start_date = datetime.fromisoformat(tournament_serialized["start_date"])
+        end_date = datetime.fromisoformat(tournament_serialized["end_date"])
+
         tournament = cls(
             tournament_serialized["name_tournament"],
             tournament_serialized["location"],
-            date.fromisoformat(tournament_serialized[
-                "start_date"]) if tournament_serialized[
-                "start_date"] != "null" else None,
-            date.fromisoformat(tournament_serialized[
-                "end_date"]) if tournament_serialized[
-                "end_date"] != "null" else None,
+            start_date,
+            end_date,
             tournament_serialized["nb_round"],
             tournament_serialized["description"]
             )
 
-        tournament.players = [Player.player_deserialize(player)
-                              for player in tournament_serialized["players"]]
-        tournament.rounds = [Round.round_deserialize(round)
-                             for round in tournament_serialized["rounds"]]
+        tournament.nb_player = tournament_serialized["nb_player"]
+        tournament.nb_round_in_progress = tournament_serialized["nb_round_in_progress"]
+        tournament.nb_player_in_progress = tournament_serialized["nb_player_in_progress"]
 
+        tournament.players = [Player.player_deserialize(player)
+                              for player in tournament_serialized["players"]
+                              ]
+        tournament.rounds = [Round.round_deserialize(round)
+                             for round in tournament_serialized["rounds"]
+                             ]
         return tournament
 
     def save_tournament(self):
@@ -335,25 +340,22 @@ class Tournament:
 
         Returns:
             None: None
-
+            .pop("name_tournament", None)
         """
-
-        folder_path = Path.cwd()/"data"
-        file_path = folder_path/"tournaments.json"
-
-        if not file_path.exists():
-            folder_path.mkdir(exist_ok=True, parents=True)
-            file_path.touch()
-            with open(file_path, mode="w", encoding="utf-8") as f:
-                json.dump([], f)
+        file_path = Path.cwd()/"data"/"tournaments.json"
 
         with open(file_path, mode="r", encoding="utf-8") as f:
-            tournaments = json.load(f)
+            tournaments_serialized = json.load(f)
+
+            for tournament_serialized in tournaments_serialized:
+                if tournament_serialized["name_tournament"] == self.name_tournament:
+                    tournaments_serialized.remove(tournament_serialized)
+
             tournament_serialized = self.tournament_serialize()
-            tournaments.append(tournament_serialized)
+            tournaments_serialized.append(tournament_serialized)
 
         with open(file_path, mode="w", encoding="utf-8") as f:
-            json.dump(tournaments, f, indent=4)
+            json.dump(tournaments_serialized, f, indent=4)
 
     def whos_won(self):
         """Affiche le joueur ayant le plus grand score.
@@ -425,29 +427,6 @@ class Tournament:
                         tournament.rounds
                         )
 
-        # print("*" * 100)
-        # print(f"Les informations sur le tournoi \"{tournament.name_tournament}\": --->\n")
-        # print(tournament)
-        # print("*" * 100)
-        # print(f"Les joueurs participants au tournoi \"{tournament.name_tournament}\": --->:\n")
-        # for player in players:
-        #     print(player)
-        #     print("-" * 30)
-        # print("*" * 100)
-        # print(f"Les rounds organisés dans le tournoi \"{tournament.name_tournament}\": --->\n")
-        # for round in rounds:
-        #     print(round)
-        #     print("-" * 30)
-        # print("*" * 100)
-        # print("Les matchs: --->\n")
-        # for round_match in round_matches:
-        #     print(round_match[0])
-        #     print("-" * 30)
-        #     for i, match in enumerate(round_match[1]):
-        #         print(f"Match {i+1}>>>>>>\n")
-        #         print(match)
-        #         print("-" * 30)
-
         return tournament, players, rounds, round_matches
 
     @classmethod
@@ -460,17 +439,28 @@ class Tournament:
         with open(file_path, mode="r", encoding="utf-8") as f:
             tournaments_serialized = json.load(f)
 
-            tournaments = (cls.tournament_deserialize(tournament_serialized)
+            tournaments = [cls.tournament_deserialize(tournament_serialized)
                            for tournament_serialized in tournaments_serialized
-                           )
+                           ]
 
             for tournament in tournaments:
                 if tournament.name_tournament == name_tournament:
                     return f"Le tournoi:\n\n{tournament}\nexiste déjà."
 
-            # for tournament_serialized in tournaments_serialized:
-            #     if ("name_tournament", name_tournament) in tournament_serialized.items():
-            #         return f"Le tournoi \"{name_tournament}\" existe déjà."
+    @classmethod
+    def extract_tournament(cls):
+        """
+        Extrait le dernier tournoi non finis.
+        """
+        file_path = Path.cwd()/"data"/"tournaments.json"
+
+        with open(file_path, mode="r", encoding="utf-8") as f:
+            tournaments_serialized = json.load(f)
+
+            tournaments = [cls.tournament_deserialize(tournament_serialized)
+                           for tournament_serialized in tournaments_serialized
+                           ]
+        return tournaments[-1]
 
 
 class Round:
@@ -492,6 +482,8 @@ class Round:
         self.start_datetime = start_datetime
         self.end_datetime = end_datetime
         self.matches = []
+        # A chaque fois qu'un round est créé, le nombre de round en cours incremente.
+        Tournament.nb_round_in_progress += 1
 
     def __str__(self):
         """Affiche les informations sur le tour"""
@@ -520,10 +512,10 @@ class Round:
 
         round_serialized = {
             "round_name": self.round_name,
-            "start_datetime": (self.start_datetime.strftime("%Y-%m-%d") if
+            "start_datetime": (self.start_datetime.strftime("%Y-%m-%d %H:%M:%S") if
                                self.start_datetime is not None else "null"
                                ),
-            "end_datetime": (self.end_datetime.strftime("%Y-%m-%d") if
+            "end_datetime": (self.end_datetime.strftime("%Y-%m-%d %H:%M:%S") if
                              self.end_datetime is not None else "Null"
                              ),
             "matches": self.matches
@@ -540,17 +532,26 @@ class Round:
         """
         Restaure le round dans sa forme originelle.
         """
+        # round = Round(
+        #               round_serialized["round_name"],
+        #               datetime.fromisoformat(round_serialized["start_datetime"]) if
+        #               round_serialized["start_datetime"] != "null" else None,
+        #               datetime.fromisoformat(round_serialized["end_datetime"]) if
+        #               round_serialized["end_datetime"] != "null" else None
+        #               )
+
+        start_datetime = datetime.fromisoformat(round_serialized["start_datetime"])
+        end_datetime = datetime.fromisoformat(round_serialized["end_datetime"])
         round = Round(
                       round_serialized["round_name"],
-                      date.fromisoformat(round_serialized["start_datetime"]) if
-                      round_serialized["start_datetime"] != "null" else None,
-                      date.fromisoformat(round_serialized["end_datetime"]) if
-                      round_serialized["end_datetime"] != "null" else None
+                      start_datetime,
+                      end_datetime
                       )
-        round.matches = [
+
+        round.matches = (
             Match.match_deserialize(match_serialized)
             for match_serialized in round_serialized["matches"]
-              ]
+              )
 
         return round
 
@@ -600,8 +601,7 @@ class Match:
         Méthode pour representer le match en interne.
         """
         return (
-            f'"player_1": {self.player_1},'
-            f'"player_2": {self.player_2}'
+            f'"player_1": {self.player_1}, "player_2": {self.player_2}'
                )
 
     def match_serialize(self):
@@ -613,11 +613,9 @@ class Match:
 
         """
         match_serialized = {
-            "player_1": self.player_1,
-            "player_2": self.player_2
+            "player_1": self.player_1.player_serialize(),
+            "player_2": self.player_2.player_serialize()
                             }
-        match_serialized["player_1"] = self.player_1.player_serialize()
-        match_serialized["player_2"] = self.player_2.player_serialize()
 
         return match_serialized
 
@@ -626,18 +624,19 @@ class Match:
         """
         Restaure le match dans sa forme originale.
         """
+        player_1 = Player.player_deserialize(match_serialized["player_1"])
+        player_2 = Player.player_deserialize(match_serialized["player_2"])
 
-        match_serialized["player_1"] = Player.player_deserialize(
-            match_serialized["player_1"]
-            )
-        match_serialized["player_2"] = Player.player_deserialize(
-            match_serialized["player_2"]
-            )
+        # return cls(player_1, player_2)
 
-        match = cls(
-            match_serialized["player_1"],
-            match_serialized["player_2"]
-                    )
+        # match_serialized["player_1"] = Player.player_deserialize(
+        #     match_serialized["player_1"]
+        #     )
+        # match_serialized["player_2"] = Player.player_deserialize(
+        #     match_serialized["player_2"]
+        #     )
+
+        match = cls(player_1, player_2)
 
         return match
 

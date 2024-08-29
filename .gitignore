@@ -2,3 +2,4 @@ env/
 exemples/
 flake-report/
 .flake8
+.env/
