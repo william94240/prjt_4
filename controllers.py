@@ -215,6 +215,13 @@ class Controller:
         tournament = Tournament.extract_tournament()
         if tournament.nb_round_in_progress < tournament.nb_round:
             if tournament.nb_player_in_progress < tournament.nb_player:
+                pass
+            else:
+                pass
+        else:
+            print("Ce tournoi est déjà terminé.")
+            exit()
+
             cls.register_tournament_player(tournament)
             View.go_on_tournament()
             players = tournament.players
