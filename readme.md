@@ -33,28 +33,30 @@ Démarrer l'application avec la commande suivante:
 python main.py
 ```
 
-## Les options d'utilisation
-### 1) Créer un tournoi
-* Le programme vous permet de gérer des tournois d'échecs. Lors de la première utilisation, sélectionnez "Créer un tournoi", puis laissez vous guider.
-* Si aucun joueurs n'est présent dans la base de donnée, vous serez invité à en créer.
-* Lors d'un tournoi, vous serez invité à rentrer les résultats après chaque match. A la fin d'un tournoi, un classement sera généré.
-* Pendant le tournoi, vous aurez la possibilité de sauvegarder le tournoi en cours, en charger un nouveau, de voir ou modifier les classements.
-### 2) Charger un tournoi
-* Cette section vous permet de charger un tournoi depuis la base de donnée.
-* Une fois le tournoi chargé, vous serez invité à le continuer.
-### 3) Créer des joueurs
-* Lorsque vous sélectionnez cette option, vous êtes invité à rentrer le nombre de joueurs à créer.
-* Laissez vous ensuite guider par le programme.
-### 4) Les rapports
-* Cette section vous permet de générer différents rapport.
-* Vous pouvez consulter: le classement global des joueurs par classement et ordre alphabétique.
-* Les détails des tournois passés: classement des joueurs du tournoi, tours et matchs de chaque tournois.
-### 5) Générer le rapport Flake8
+## Les Différentes options d'utilisation.
+### 1] Ajouter un(des) joueur(s) au club
+- Ce programme vous permet de gérer des tournois d'échecs.
+- Cette option à pour vocation de créer et d'enregistrer des joueurs dans la base de données du club.
+- Laissez vous ensuite guider par le programme.
+### 2] Créer et démarrer un tournoi.
+- Cette option est dédiée à la création d'un tournoi.
+- En premier, vous êtes convié à saisir les noms des joueurs participants. Dans l'eventualité où le joueur existe dans la base de données du club , il vous sera demandé de le confirmer, dans le cas contraire vous serez invité à en créer.
+- Lors d'un tournoi, vous serez invité à rentrer les résultats après chaque match. A la fin d'un tournoi, un classement sera automatiquement généré et Le nom du Vainqueur d'affichera.
+- Il est à noter que la sauvegarde du tournoi s'effectue en permanence de maniere automatique afin de garantir la persistance des données.
+### 3] Reprendre un tournoi.
+- Cette option de reprendre un tournoi incomplet.
+- Cette option permet d'extraire un tournoi depuis la base de donnée. Une fois le tournoi extrait, vous serez convié à le continuer.
+### 4] Génération des rapports.
+- Cette options permet d'éditer toutes sortes des rapports:
+    > - Afficher la liste triées de tous les joueurs au club
+    > - Afficher la liste triées de tournois dejà orgnanisés avec les détails inhérants: les joueurs, les tours et les matchs de chaque tournois.
+    > - Rechercher un tournoi spécifique et afficher les informations associées.
+### Générer le rapport Flake8
 * Ouvrer le terminal saisisez:
 ```
 pip intall flake8-html
 ```
-* Créer également un fichier `.flake`
+* Créer un fichier `.flake`
 * Ecrire dedans le texte suivant:
 ```
 [flake8]

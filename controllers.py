@@ -31,12 +31,16 @@ class Controller:
             elif user_choice == "2":
                 cls.create_a_tournament()
 
-            # Voir les rapports
+            # Reprendre un tournoi.
             elif user_choice == "3":
+                cls.resume_tournament()
+
+            # Voir les rapports
+            elif user_choice == "4":
                 cls.generate_report()
 
             # Quitter
-            elif user_choice == "4":
+            elif user_choice == "5":
                 exit()
 
     @classmethod
@@ -81,6 +85,7 @@ class Controller:
         """
         tournamant_infos = View.request_tournament_infos()
         tournament = Tournament(*tournamant_infos)
+        tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
         View.display_tournament(tournament)
         Tournament.tournaments.append(tournament)
         cls.register_tournament_player(tournament)
@@ -126,6 +131,8 @@ class Controller:
 
             round.round_finished()
             tournament.rounds.append(round)
+            # Incrémente l'indicateur "nb_round_in_progress" du nombre de joueur en cours de saisie.
+            tournament.nb_round_in_progress += 1
             tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
 
         winner = tournament.whos_won()
@@ -167,6 +174,8 @@ class Controller:
 
             View.display_player(player)
             tournament.players.append(player)
+            # Incrémente l'indicateur "tournament.nb_player_in_progress" du nombre de joueur en cours de saisie.
+            tournament.nb_player_in_progress += 1
             # Sauvegarde également le joueur dans le club.
             player.save_club_player()
             tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
@@ -177,57 +186,103 @@ class Controller:
         Crée des paires pour les matchs et permet la saisie des scores et
         l'affichage des matchs du round.
         """
+        # for k, match in enumerate(matches_round):
+        #     match.player_1.score = View.set_player_score(
+        #         match.player_1.first_name,
+        #         match.player_1.last_name,
+        #         match.player_2.first_name,
+        #         match.player_2.last_name
+        #                                                 )
+            # if match.player_1.score == 1:
+            #     match.player_2.score = 0
+
+            # elif match.player_1.score == 0.5:
+            #     match.player_2.score = 0.5
+
+            # elif match.player_1.score == 0:
+            #     match.player_2.score = 1
+
+            # match.player_1.score_total += match.player_1.score
+            # match.player_2.score_total += match.player_2.score
+
+            # score = (
+            #     f"Le/La joueur(euse) ---> {match.player_1.first_name} "
+            #     f"{match.player_1.last_name} a "
+            #     f"un score sur le match = {match.player_1.score}\n"
+            #     f"et "
+            #     f"un score cumulé = {match.player_1.score_total}\n\n"
+
+            #     f"Le/La joueur(euse) ---> {match.player_2.first_name} "
+            #     f"{match.player_2.last_name} a "
+            #     f"un score sur le match = {match.player_2.score}\n"
+            #     f"et "
+            #     f"un score cumulé = {match.player_2.score_total}\n\n"
+            #         )
+
+            # View.display_score(round_name, k,  score)
+
         for k, match in enumerate(matches_round):
-            match.player_1.score = View.set_player_score(
-                match.player_1.first_name, match.player_1.last_name)
-            if match.player_1.score == 1:
-                match.player_2.score = 0
-
-            elif match.player_1.score == 0.5:
-                match.player_2.score = 0.5
-
-            elif match.player_1.score == 0:
-                match.player_2.score = 1
+            players_score = View.set_player_score(
+                match.player_1.first_name,
+                match.player_1.last_name,
+                match.player_2.first_name,
+                match.player_2.last_name
+                                                        )
+            match.player_1.score = players_score[0]
+            match.player_2.score = players_score[1]
 
             match.player_1.score_total += match.player_1.score
             match.player_2.score_total += match.player_2.score
 
             score = (
-                f"Le/La joueur(euse) ---> {match.player_1.first_name} "
-                f"{match.player_1.last_name} a "
-                f"un score sur le match = {match.player_1.score}\n"
-                f"et "
-                f"un score cumulé = {match.player_1.score_total}\n\n"
+                f"""
+                Le/La joueur(euse) ---> {match.player_1.first_name} {match.player_1.last_name}
+                a: - un score sur le match = {match.player_1.score}
+                   - un score cumulé = {match.player_1.score_total}
 
-                f"Le/La joueur(euse) ---> {match.player_2.first_name} "
-                f"{match.player_2.last_name} a "
-                f"un score sur le match = {match.player_2.score}\n"
-                f"et "
-                f"un score cumulé = {match.player_2.score_total}\n\n"
+                Le/La joueur(euse) ---> {match.player_2.first_name} {match.player_2.last_name}
+                a: - un score sur le match = {match.player_2.score}
+                   - un score cumulé = {match.player_2.score_total}
+                """
                     )
-
             View.display_score(round_name, k,  score)
 
     @classmethod
     def resume_tournament(cls):
-        """Reprendre un tournoi non incomplet.
+        """Permet de reprendre un tournoi non incomplet ou interrompu.
         """
+
         tournament = Tournament.extract_tournament()
+        View.message_resume(tournament)
+        if tournament.nb_player_in_progress < tournament.nb_player:
+            for i in range(tournament.nb_player_in_progress + 1, tournament.nb_player + 1):
+                player_data = View.ask_for_player_infos()
+                player = Player(*player_data)
+                chess_id = player_data[2]
+                player_exist = Player.chess_id_exist(chess_id)
+
+                if player_exist:
+                    player_redefinition = View.chess_id_exist(player_exist)
+                    if player_redefinition:
+                        # delete the player et continuer la saisie
+                        cls.delete_player(chess_id)
+
+                    else:
+                        # delete the player et le resaisir
+                        cls.delete_player(chess_id)
+                        player = player_exist
+
+                View.display_player(player)
+                tournament.players.append(player)
+                tournament.nb_player_in_progress += 1
+                # Sauvegarde également le joueur dans le club.
+                player.save_club_player()
+                tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
+
         if tournament.nb_round_in_progress < tournament.nb_round:
-            if tournament.nb_player_in_progress < tournament.nb_player:
-                pass
-            else:
-                pass
-        else:
-            print("Ce tournoi est déjà terminé.")
-            exit()
-
-            cls.register_tournament_player(tournament)
-            View.go_on_tournament()
             players = tournament.players
-            nb_round = tournament.nb_round
 
-            for i in range(Tournament.nb_round_in_progress, nb_round):
+            for i in range(tournament.nb_round_in_progress, tournament.nb_round):
                 round_name = f"Round {i + 1}"
                 round = Round(round_name)
 
@@ -265,7 +320,15 @@ class Controller:
 
                 round.round_finished()
                 tournament.rounds.append(round)
-                tournament.save_tournament()
+                tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
+        else:
+            View.message_no_resume()
+            exit()
+
+        winner = tournament.whos_won()
+        View.display_winner(winner)
+        tournament.tournament_finished()
+        tournament.save_tournament()  # --------------> Sauvegarde le tournoi.
 
     @staticmethod
     def generate_report():
@@ -310,4 +373,5 @@ if __name__ == "__main__":
     # Controller.create_a_tournament()
     # Controller.delete_player("kkk")
 
-    print(Controller.tournament_name_exist("Hay"))
+    # print(Controller.tournament_name_exist("Hay"))
+    Controller.resume_tournament()

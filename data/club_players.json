@@ -1,5 +1,53 @@
 [
     {
+        "first_name": "Carl",
+        "last_name": "Lewis",
+        "chess_id": "AB00001",
+        "birthday": "1961-07-01",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Sam",
+        "last_name": "Graddy",
+        "chess_id": "AB00002",
+        "birthday": "1964-02-10",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Ben",
+        "last_name": "Johnson",
+        "chess_id": "AB00003",
+        "birthday": "1961-12-30",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Ron",
+        "last_name": "Brown",
+        "chess_id": "AB00004",
+        "birthday": "1961-03-31",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Mike",
+        "last_name": "McFarlane",
+        "chess_id": "AB00005",
+        "birthday": "1960-05-02",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Ray",
+        "last_name": "Stewart",
+        "chess_id": "AB00006",
+        "birthday": "1965-03-18",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
         "first_name": "Jean-Pierre",
         "last_name": "Borl\u00e9e",
         "chess_id": "AA00001",
@@ -60,6 +108,46 @@
         "last_name": "Borl\u00e9e",
         "chess_id": "AA00008",
         "birthday": "1999-06-28",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Lambda",
+        "last_name": "Lambda",
+        "chess_id": "ZX00001",
+        "birthday": "2024-08-30",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Michael",
+        "last_name": "Jackson",
+        "chess_id": "FG00001",
+        "birthday": "1958-08-29",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Diana",
+        "last_name": "Ross",
+        "chess_id": "FG00002",
+        "birthday": "1944-03-26",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Marvin",
+        "last_name": "Gaye",
+        "chess_id": "FG00003",
+        "birthday": "1939-04-02",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Stevie",
+        "last_name": "Wonder",
+        "chess_id": "FG00004",
+        "birthday": "1950-05-13",
         "score": 0.0,
         "score_total": 0.0
     }

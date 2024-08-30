@@ -19,8 +19,9 @@ class View:
         display_message = """Que souhaitez-vous faire ?
                               1 - Ajouter un(des) joueur(s) au club.
                               2 - Créer et démarrer un tournoi.
-                              3 - Générer les rapports.
-                              4 - Quitter.
+                              3 - Reprendre un tournoi.
+                              4 - Génération des rapports.
+                              5 - Quitter.
                            """
 
         rich.print(display_message)
@@ -32,10 +33,10 @@ class View:
         """Demande le choix de l'utilisateur."""
         while True:
             choice = Prompt.ask("Votre choix ", default="2")
-            if choice in ["1", "2", "3", "4"]:
+            if choice in ["1", "2", "3", "4", "5"]:
                 return choice
             else:
-                rich.print(f"'{choice}' n'est pas valide.Veuillez effectuer un choix dans (1, 2, 3, 4)")
+                rich.print(f"'{choice}' n'est pas valide.Veuillez effectuer un choix dans (1, 2, 3, 4, 5)")
 
     @staticmethod
     def ask_for_player_infos():
@@ -47,8 +48,6 @@ class View:
         """
 
         rich.print("-" * 100)
-
-        # from contr1ollers import Controller
 
         while True:
             chess_id = Prompt.ask("Entrer l'identifiant Echecs ")
@@ -62,17 +61,6 @@ class View:
                     f"le format de {chess_id} n'est pas conforme"
                     f" à l'identifiant national d’échecs: ex. type: AB12345"
                     )
-
-        # chess_id_exist = Controller.chess_id_exist(chess_id)
-        # if chess_id_exist:
-        #     rich.print(chess_id_exist)
-        #     rich.print("Voulez-vous redéfinir le joueur ?")
-        #     response = Prompt.ask("o/n ", default="o")
-        #     if response == "o":
-        #         # delete the player et continuer la saisie
-        #         Controller.delete_player(chess_id)
-        #     else:
-        #         exit()
 
         while True:
             first_name = Prompt.ask("Entrer le prénom du joueur ")
@@ -128,7 +116,7 @@ class View:
         if response == "o":
             # delete the player et continuer la saisie
             return True
-        
+
 
     @staticmethod
     def display_player(player):
@@ -254,7 +242,7 @@ class View:
                 rich.print(
                     f"'{nb_round}' n'est pas un nombre entier."
                     f" Le nombre de tour du tournoi doivent être de type: 4, 5, 6...")
-       
+
         description = Prompt.ask("Entrer la description du tournoi ", default="R.a.s")
 
         return (
@@ -325,7 +313,7 @@ class View:
         return response
 
     @staticmethod
-    def set_player_score(player_first_name, player_last_name):
+    def set_player_score(player_1_first_name, player_1_last_name, player_2_first_name, player_2_last_name):
         """
         Demande le score du jouer.
 
@@ -335,15 +323,38 @@ class View:
         while True:
             score_player = Prompt.ask(
                 f"""
-                Entrer le résultat de '{player_first_name} {player_last_name}'
-                [La valeur doit être comprise entre (0, 0.5, 1)]
+                Qui a gagné :
+                1. {player_1_first_name} {player_1_last_name}
+                2. {player_2_first_name} {player_2_last_name}
+                3. Match nul
                 """
                                     )
-            if score_player in ["0", "0.5", "1"]:
-                score_player = float(score_player)
-                return score_player
+            if score_player == "1":
+                player_1_score = 1
+                player_2_score = 0
+                return player_1_score, player_2_score
+            elif score_player == "2":
+                player_1_score = 0
+                player_2_score = 1
+                return player_1_score, player_2_score
+            elif score_player == "3":
+                player_1_score = 0.5
+                player_2_score = 0.5
+                return player_1_score, player_2_score
             else:
-                rich.print("veuillez entrer un chiffre valide compris dans [0, 0.5, 1]")
+                rich.print("veuillez effectuer un choix valide dans (1, 2, 3)")
+        # while True:
+        #     score_player = Prompt.ask(
+        #         f"""
+        #         Entrer le résultat de '{player_1_first_name} {player_1_last_name}' CONTRE '{player_2_first_name} {player_2_last_name}'
+        #         [La valeur doit être comprise entre (0, 0.5, 1)]
+        #         """
+        #                             )
+        #     if score_player in ["0", "0.5", "1"]:
+        #         score_player = float(score_player)
+        #         return score_player
+        #     else:
+        #         rich.print("veuillez entrer un chiffre valide compris dans [0, 0.5, 1]")
 
     @staticmethod
     def display_score(round_name, k,  score):
@@ -379,6 +390,16 @@ class View:
         rich.print("Fin du tournoi")
 
     @staticmethod
+    def message_resume(tournament):
+        """Affiche le message de  reprise."""
+        rich.print(f"Nous reprenons le tournoi: {tournament}.")
+
+    @staticmethod
+    def message_no_resume():
+        """Affiche le message de non reprise."""
+        rich.print("Ce tournoi est déjà terminé.")
+
+    @staticmethod
     def ask_for_report_choice():
         """Demande le choix du rapport à afficher."""
         display_message = """Quel rapport souhaitez-vous obtenir ?
@@ -400,6 +421,7 @@ class View:
         rich.print("-" * 100)
         rich.print()
         rich.print("Liste de tous les joueurs inscrits à notre club: ")
+        rich.print()
         for player in players:
             rich.print(player)
             rich.print("-"*50)
@@ -469,4 +491,5 @@ if __name__ == "__main__":
     # print(View.ask_number_of_players())
     # View.user_input()
     # print(View.set_player_score("william", "Mopete"))
-    View.ask_number_of_players()
+    # View.ask_number_of_players()
+    View.message_resume("name_tournament")

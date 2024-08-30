@@ -197,9 +197,9 @@ class Tournament:
     # Liste des tournois.
     tournaments = []
     # nombre de tours en cours
-    nb_round_in_progress = 0
+    # nb_round_in_progress = 0
     # nombre de joueurs en cours de saisie
-    nb_player_in_progress = 0
+    # nb_player_in_progress = 0
 
     def __init__(
                  self,
@@ -231,8 +231,10 @@ class Tournament:
         self.players = []
         self.rounds = []
         self.nb_player = 0
-        self.nb_round_in_progress = Tournament.nb_round_in_progress
-        self.nb_player_in_progress = Tournament.nb_player_in_progress
+        self.nb_round_in_progress = 0
+        self.nb_player_in_progress = 0
+        # self.nb_round_in_progress = Tournament.nb_round_in_progress
+        # self.nb_player_in_progress = Tournament.nb_player_in_progress
 
     def __repr__(self):
         """Méthode pour une représentation interne du tournoi
@@ -409,11 +411,8 @@ class Tournament:
             for tournament_serialized in tournaments_serialized:
                 # Cherche si le tuple(name_tournament, name_tournament) est
                 # dans tournament_serialized
-                if (("name_tournament", name_tournament) in
-                        tournament_serialized.items()):
-                    tournament = cls.tournament_deserialize(
-                        tournament_serialized
-                        )
+                if ("name_tournament", name_tournament) in tournament_serialized.items():
+                    tournament = cls.tournament_deserialize(tournament_serialized)
 
                     # Affichage des joueurs du tournoi.
                     players = (player for player in tournament.players)
@@ -482,8 +481,6 @@ class Round:
         self.start_datetime = start_datetime
         self.end_datetime = end_datetime
         self.matches = []
-        # A chaque fois qu'un round est créé, le nombre de round en cours incremente.
-        Tournament.nb_round_in_progress += 1
 
     def __str__(self):
         """Affiche les informations sur le tour"""
@@ -703,5 +700,5 @@ if __name__ == "__main__":
     # print(Tournament.tournament_name_exist("Hay"))
     # Player.display_club_players()
     # Tournament.display_list_of_tournament()
-    Tournament.search_a_specific_tournament_informations("Hay")
+    Tournament.search_a_specific_tournament_informations("Woluwe-Saint-Lambert")
 
