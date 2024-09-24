@@ -1,4 +1,4 @@
-env/
-exemples/
+.venv/
+.vscode/
+data/
 .flake8
-.env/

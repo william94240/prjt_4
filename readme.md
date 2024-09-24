@@ -1,8 +1,8 @@
 # OpenClassrooms Projet 4 - Gestionnaire de Tournoi d'échecs
-Ce programme Concue sous Python, est destiné à aider les clubs d'échecs à gérer leurs tournois hors ligne et à générer des rapports. Sa programmation repose sur le Design Pattern MVC (Modèle Vue Contrôleur). Le programme peut être interrompu en cours de compétition pour être repris par la suite.
+Ce programme Concu sous Python, est destiné à aider les clubs d'échecs à gérer leurs tournois hors ligne et à générer des rapports. Sa programmation repose sur le Design Pattern MVC (Modèle Vue Contrôleur). Le programme peut être interrompu en cours de compétition pour être repris par la suite.
 _Il a été Developpé sous Windows 11 - Python version 3.12.4_
 ## Installation:
-En préliminaire installer Python.
+En préliminaire, installer Python.
 Lancez la console et placez vous dans le dossier d'installation cible de votre choix puis clonez ce repository:
 
 > git clone https://github.com/william94240/prjt_4.git
@@ -16,15 +16,15 @@ Réplacez-vous dans votre dossier d'installation, puis créez un nouvel environn
 python -m venv env
 ```
 Activez-le.
-* Windows:
+* Pour Windows:
  ```
     /env/Scripts/activate
  ```
-* Linux:
+* Pour Linux:
 ```
     source env/bin/activate
 ```
-A l'aide de pip installer les dépendances requises:
+A l'aide de pip, installer les dépendances requises:
 ```
 pip install -r requirements.txt
 ```
@@ -35,20 +35,19 @@ python main.py
 
 ## Les Différentes options d'utilisation.
 ### 1] Ajouter un(des) joueur(s) au club
-- Ce programme vous permet de gérer des tournois d'échecs.
-- Cette option à pour vocation de créer et d'enregistrer des joueurs dans la base de données du club.
-- Laissez vous ensuite guider par le programme.
+- Cette option a pour vocation de créer et d'enregistrer des joueurs dans la base de données du club.
+- Laissez-vous ensuite guider par le programme.
 ### 2] Créer et démarrer un tournoi.
 - Cette option est dédiée à la création d'un tournoi.
-- En premier, vous êtes convié à saisir les noms des joueurs participants. Dans l'eventualité où le joueur existe dans la base de données du club , il vous sera demandé de le confirmer, dans le cas contraire vous serez invité à en créer.
+- En premier, vous êtes convié à saisir les noms des joueurs participants. Dans l'éventualité où le joueur existe dans la base de données du club, il vous sera demandé de le confirmer, dans le cas contraire vous serez invité à le redéfinir.
 - Lors d'un tournoi, vous serez invité à rentrer les résultats après chaque match. A la fin d'un tournoi, un classement sera automatiquement généré et Le nom du Vainqueur d'affichera.
-- Il est à noter que la sauvegarde du tournoi s'effectue en permanence de maniere automatique afin de garantir la persistance des données.
+- Il est à noter que la sauvegarde du tournoi s'effectue en permanence de manière automatique afin de garantir la persistance des données.
 ### 3] Reprendre un tournoi.
-- Cette option de reprendre un tournoi incomplet.
-- Cette option permet d'extraire un tournoi depuis la base de donnée. Une fois le tournoi extrait, vous serez convié à le continuer.
+- Cette option permet la reprise d’un tournoi incomplet.
+- Concrètement, elle permet d'extraire un tournoi dans son état avant interruption depuis la base de données. Une fois qu’elle est extraite, vous serez convié à le continuer.
 ### 4] Génération des rapports.
-- Cette options permet d'éditer toutes sortes des rapports:
-    > - Afficher la liste triées de tous les joueurs au club
-    > - Afficher la liste triées de tournois dejà orgnanisés avec les détails inhérants: les joueurs, les tours et les matchs de chaque tournois.
+- Cette option permet d'éditer toutes sortes des rapports :
+    > - Afficher la liste triée de tous les joueurs au club
+    > - Afficher la liste triée de tournois déjà orgnanisés avec les détails inhérents : les joueurs, les tours et les matcorganiséshs de chaque tournois.
     > - Rechercher un tournoi spécifique et afficher les informations associées.
 

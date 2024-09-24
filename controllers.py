@@ -67,10 +67,6 @@ class Controller:
             if finish != "o":
                 break
 
-    # @staticmethod
-    # def chess_id_exist(chess_id):
-    #     return Player.chess_id_exist(chess_id)
-
     @staticmethod
     def delete_player(chess_id):
         Player.delete_player(chess_id)
@@ -186,40 +182,6 @@ class Controller:
         Crée des paires pour les matchs et permet la saisie des scores et
         l'affichage des matchs du round.
         """
-        # for k, match in enumerate(matches_round):
-        #     match.player_1.score = View.set_player_score(
-        #         match.player_1.first_name,
-        #         match.player_1.last_name,
-        #         match.player_2.first_name,
-        #         match.player_2.last_name
-        #                                                 )
-            # if match.player_1.score == 1:
-            #     match.player_2.score = 0
-
-            # elif match.player_1.score == 0.5:
-            #     match.player_2.score = 0.5
-
-            # elif match.player_1.score == 0:
-            #     match.player_2.score = 1
-
-            # match.player_1.score_total += match.player_1.score
-            # match.player_2.score_total += match.player_2.score
-
-            # score = (
-            #     f"Le/La joueur(euse) ---> {match.player_1.first_name} "
-            #     f"{match.player_1.last_name} a "
-            #     f"un score sur le match = {match.player_1.score}\n"
-            #     f"et "
-            #     f"un score cumulé = {match.player_1.score_total}\n\n"
-
-            #     f"Le/La joueur(euse) ---> {match.player_2.first_name} "
-            #     f"{match.player_2.last_name} a "
-            #     f"un score sur le match = {match.player_2.score}\n"
-            #     f"et "
-            #     f"un score cumulé = {match.player_2.score_total}\n\n"
-            #         )
-
-            # View.display_score(round_name, k,  score)
 
         for k, match in enumerate(matches_round):
             players_score = View.set_player_score(
@@ -374,4 +336,4 @@ if __name__ == "__main__":
     # Controller.delete_player("kkk")
 
     # print(Controller.tournament_name_exist("Hay"))
-    Controller.resume_tournament()
+    # Controller.resume_tournament()

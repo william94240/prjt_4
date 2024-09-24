@@ -643,7 +643,7 @@ if __name__ == "__main__":
     Tests
     """
 
-    player1 = Player("William", "Mopete", "AB12345", date(1962, 4, 14))
+    # player1 = Player("William", "Mopete", "AB12345", date(1962, 4, 14))
     # player_serialized = player1.player_serialize()
     # print(player1)
     # print(player1.player_serialize())
@@ -654,7 +654,7 @@ if __name__ == "__main__":
     # import rich
     # rich.print(player1.display_club_players())
     # print(Player.display_club_players())
-    player2 = Player("Nelly", "Mopete", "AB98745", date(1964, 6, 2))
+    # player2 = Player("Nelly", "Mopete", "AB98745", date(1964, 6, 2))
     # print(player2)
 
     # print(player1)
@@ -700,5 +700,4 @@ if __name__ == "__main__":
     # print(Tournament.tournament_name_exist("Hay"))
     # Player.display_club_players()
     # Tournament.display_list_of_tournament()
-    Tournament.search_a_specific_tournament_informations("Woluwe-Saint-Lambert")
-
+    # Tournament.search_a_specific_tournament_informations("Woluwe-Saint-Lambert")

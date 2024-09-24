@@ -117,7 +117,6 @@ class View:
             # delete the player et continuer la saisie
             return True
 
-
     @staticmethod
     def display_player(player):
         """Affiche le joueur.
@@ -197,13 +196,6 @@ class View:
                     f" 01/01/1990,  lundi, mardi, aujourd'hui, demain,"
                     f" 30 juillet 2021, 30 juillet 21 ..."
                             )
-                # response = input(
-                #     "Voulez-vous que la date d'aujourd'hui soit considéreé comme date de début du tournoi ? (o/n): "
-                #                 )
-                # if response == "o":
-                #     # Prendre la date en cours pour date de début du tournoi.
-                #     start_date = datetime.now()
-                #     break
 
         while True:
             entry = Prompt.ask(
@@ -225,13 +217,6 @@ class View:
                     f" 01/01/1990,  lundi, mardi, aujourd'hui, demain,"
                     f" 30 juillet 2021, 30 juillet 21 ..."
                     )
-                # response = input(
-                #     "Voulez-vous que la date d'aujourd'hui soit considéreé comme date de fin du tournoi ? (o/n): "
-                #                 )
-                # if response == "o":
-                #     # Prendre la date en cours pour date de fin du tournoi.
-                #     end_date = datetime.now()
-                #     break
 
         while True:
             nb_round = Prompt.ask("Entrer le nombre de tour du tournoi ", default="4")
@@ -343,18 +328,6 @@ class View:
                 return player_1_score, player_2_score
             else:
                 rich.print("veuillez effectuer un choix valide dans (1, 2, 3)")
-        # while True:
-        #     score_player = Prompt.ask(
-        #         f"""
-        #         Entrer le résultat de '{player_1_first_name} {player_1_last_name}' CONTRE '{player_2_first_name} {player_2_last_name}'
-        #         [La valeur doit être comprise entre (0, 0.5, 1)]
-        #         """
-        #                             )
-        #     if score_player in ["0", "0.5", "1"]:
-        #         score_player = float(score_player)
-        #         return score_player
-        #     else:
-        #         rich.print("veuillez entrer un chiffre valide compris dans [0, 0.5, 1]")
 
     @staticmethod
     def display_score(round_name, k,  score):
@@ -492,4 +465,4 @@ if __name__ == "__main__":
     # View.user_input()
     # print(View.set_player_score("william", "Mopete"))
     # View.ask_number_of_players()
-    View.message_resume("name_tournament")
+    # View.message_resume("name_tournament")

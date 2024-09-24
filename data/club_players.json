@@ -1,4 +1,4 @@
-[
+ [
     {
         "first_name": "Carl",
         "last_name": "Lewis",
@@ -148,6 +148,62 @@
         "last_name": "Wonder",
         "chess_id": "FG00004",
         "birthday": "1950-05-13",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Giulio",
+        "last_name": "Ciccone",
+        "chess_id": "MN00016",
+        "birthday": "1994-12-20",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Mikel",
+        "last_name": "Landa",
+        "chess_id": "MN00010",
+        "birthday": "1989-12-13",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Adam",
+        "last_name": "Richard Yates",
+        "chess_id": "MN00011",
+        "birthday": "1992-08-07",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Carlos",
+        "last_name": "Rodriguez Cano",
+        "chess_id": "MN00012",
+        "birthday": "2001-02-02",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Matteo",
+        "last_name": "Jorgenson",
+        "chess_id": "MN00013",
+        "birthday": "1999-07-01",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Derek",
+        "last_name": "Gee",
+        "chess_id": "MN00014",
+        "birthday": "1997-08-03",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Santiago",
+        "last_name": "Buitrago S\u00e1nchez",
+        "chess_id": "MN00015",
+        "birthday": "1999-09-26",
         "score": 0.0,
         "score_total": 0.0
     }
