@@ -123,22 +123,12 @@ class Player:
 
         with open(file_path, mode="r", encoding="utf-8") as f:
             players_serialized = json.load(f)
-            # players = (
-            #     cls.player_deserialize(player_serialized).__str__(
-            #     ).replace("\n", " ")
-            #     for player_serialized in players_serialized
-            #           )
-            # players = sorted(players, key=lambda x: x.split()[3])
 
             players = (
                 cls.player_deserialize(player_serialized)
                 for player_serialized in players_serialized
                       )
             players = sorted(players, key=lambda x: x.last_name)
-
-            # for player in players:
-            #     print("-"*50)
-            #     print(player)
 
         return players
 
@@ -194,12 +184,8 @@ class Tournament:
     """
     Le tournoi: Fournis les caractéristiques de chaque instance du tournoi.
     """
-    # Liste des tournois.
+
     tournaments = []
-    # nombre de tours en cours
-    # nb_round_in_progress = 0
-    # nombre de joueurs en cours de saisie
-    # nb_player_in_progress = 0
 
     def __init__(
                  self,
@@ -233,8 +219,6 @@ class Tournament:
         self.nb_player = 0
         self.nb_round_in_progress = 0
         self.nb_player_in_progress = 0
-        # self.nb_round_in_progress = Tournament.nb_round_in_progress
-        # self.nb_player_in_progress = Tournament.nb_player_in_progress
 
     def __repr__(self):
         """Méthode pour une représentation interne du tournoi
@@ -529,13 +513,6 @@ class Round:
         """
         Restaure le round dans sa forme originelle.
         """
-        # round = Round(
-        #               round_serialized["round_name"],
-        #               datetime.fromisoformat(round_serialized["start_datetime"]) if
-        #               round_serialized["start_datetime"] != "null" else None,
-        #               datetime.fromisoformat(round_serialized["end_datetime"]) if
-        #               round_serialized["end_datetime"] != "null" else None
-        #               )
 
         start_datetime = datetime.fromisoformat(round_serialized["start_datetime"])
         end_datetime = datetime.fromisoformat(round_serialized["end_datetime"])
@@ -624,80 +601,6 @@ class Match:
         player_1 = Player.player_deserialize(match_serialized["player_1"])
         player_2 = Player.player_deserialize(match_serialized["player_2"])
 
-        # return cls(player_1, player_2)
-
-        # match_serialized["player_1"] = Player.player_deserialize(
-        #     match_serialized["player_1"]
-        #     )
-        # match_serialized["player_2"] = Player.player_deserialize(
-        #     match_serialized["player_2"]
-        #     )
-
         match = cls(player_1, player_2)
 
         return match
-
-
-if __name__ == "__main__":
-    """
-    Tests
-    """
-
-    # player1 = Player("William", "Mopete", "AB12345", date(1962, 4, 14))
-    # player_serialized = player1.player_serialize()
-    # print(player1)
-    # print(player1.player_serialize())
-    # player_serialized = player1.player_serialize()
-    # player = Player.player_deserialize(player_serialized)
-    # print(player)
-    # player1.save_club_player()
-    # import rich
-    # rich.print(player1.display_club_players())
-    # print(Player.display_club_players())
-    # player2 = Player("Nelly", "Mopete", "AB98745", date(1964, 6, 2))
-    # print(player2)
-
-    # print(player1)
-
-    # tournament_1 = Tournament("Mairie", "l'Hay", datetime(
-    #      2024, 4, 18), datetime(2024, 4, 18), 4, "ras")
-    # print(tournament_1)
-    # tournament1_serialized = tournament_1.tournament_serialize()
-    # print(tournament1_serialized)
-    # tournament1_deserialized = Tournament.tournament_deserialize(
-    #     tournament1_serialized)
-    # print(tournament1_deserialized)
-    # tournement_player1 = tournament_1.add_tournament_player(player1)
-    # tournament_1.save_tournament()
-
-    # created_round = tournament_1.create_round()
-    # print(created_round)
-    # print(tournament_1.rounds)
-
-    # print(player1.__repr__())
-    # tournament_1.create_round()
-
-    # players = Player.display_club_players()
-    # rich.print(players)
-    # pprint(players)
-
-    # Tournament.display_list_of_tournament()
-    # Tournament.search_a_specific_tournament_informations()
-
-    # a = Player.display_club_players()
-    # rich.print(a)
-    # tournament_1.tournament_serialize()
-    # tournament_1.display_list_of_tournament()
-    # print(player1.display_club_players())
-    # tournament_1.search_a_speci*-fic_tournament_informations("zinzin")
-    # tournament_1.whos_won()
-    # Tournament.display_list_of_tournament()
-    # Tournament.search_a_specific_tournament_informations("Hay")
-
-    # print(Player.chess_id_exist("iii"))
-    # Player.delete_player("iii")
-
-    # print(Tournament.tournament_name_exist("Hay"))
-    # Player.display_club_players()
-    # Tournament.display_list_of_tournament()
-    # Tournament.search_a_specific_tournament_informations("Woluwe-Saint-Lambert")

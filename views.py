@@ -279,7 +279,7 @@ class View:
     @staticmethod
     def go_on_matches(round_name):
         """Affiche l'étiquette du round."""
-        # rich.print("-" * 100)
+
         rich.print(f"Voici les matches du {round_name}:\n")
 
     @staticmethod
@@ -442,27 +442,3 @@ class View:
                 rich.print(f"Match {i+1}>>>>>>\n")
                 rich.print(match)
                 rich.print("-" * 30)
-
-
-if __name__ == "__main__":
-    """Tests
-    """
-    #     view = View()
-    #     # view.ask_for_player_infos()
-    #     view.get_match_infos()
-
-    # View.ask_for_report_choice()
-
-    # View.display_boot_menu()
-    # finish = View.finish_to_register_players_in_club()
-    # View.display_winner()
-    # View.display_club_players()
-    # View.user_input()
-
-    # View.ask_for_player_infos()
-    # print(View.request_tournament_infos())
-    # print(View.ask_number_of_players())
-    # View.user_input()
-    # print(View.set_player_score("william", "Mopete"))
-    # View.ask_number_of_players()
-    # View.message_resume("name_tournament")

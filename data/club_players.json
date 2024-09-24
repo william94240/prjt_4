@@ -1,4 +1,4 @@
- [
+[
     {
         "first_name": "Carl",
         "last_name": "Lewis",
@@ -204,6 +204,46 @@
         "last_name": "Buitrago S\u00e1nchez",
         "chess_id": "MN00015",
         "birthday": "1999-09-26",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Mikel",
+        "last_name": "Landa Meana",
+        "chess_id": "FS00011",
+        "birthday": "1989-12-13",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Tadej",
+        "last_name": "Pogacar",
+        "chess_id": "RT00010",
+        "birthday": "1998-09-21",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Jonas",
+        "last_name": "Vingegaard Rasmussen",
+        "chess_id": "RT00011",
+        "birthday": "1996-12-10",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Remco",
+        "last_name": "Evenepoel",
+        "chess_id": "RT00012",
+        "birthday": "2000-01-25",
+        "score": 0.0,
+        "score_total": 0.0
+    },
+    {
+        "first_name": "Mathieu",
+        "last_name": "van der Poel",
+        "chess_id": "RT00013",
+        "birthday": "1995-01-19",
         "score": 0.0,
         "score_total": 0.0
     }

@@ -50,4 +50,21 @@ python main.py
     > - Afficher la liste triée de tous les joueurs au club
     > - Afficher la liste triée de tournois déjà orgnanisés avec les détails inhérents : les joueurs, les tours et les matcorganiséshs de chaque tournois.
     > - Rechercher un tournoi spécifique et afficher les informations associées.
+### 5) Générer le rapport Flake8
+* Ouvrer le terminal saisisez:
+```
+pip intall flake8-html
+```
+* Créer également un fichier `.flake`
+* Ecrire dedans le texte suivant:
+```
+[flake8]
+exclude = .git, env, __pycache__, .gitignore
+max-line-length = 119
+```
+* Pour générer le rapport flake8 au format HTML tapez la commande suivante:
+```
+flake8 --format=html --htmldir=flake-report
+```
+* Vous trouverez dans le dossier `flake_report` les rapports de flake8
 

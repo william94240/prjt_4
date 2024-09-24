@@ -211,7 +211,7 @@ class Controller:
 
     @classmethod
     def resume_tournament(cls):
-        """Permet de reprendre un tournoi non incomplet ou interrompu.
+        """Permet de reprendre un tournoi non incomplet ou interrompu grâce aux indicateurs de progression.
         """
 
         tournament = Tournament.extract_tournament()
@@ -319,21 +319,3 @@ class Controller:
 
         elif report_choice == "4":
             exit()
-
-
-if __name__ == "__main__":
-    """Tests"""
-
-    # Controller.create_a_tournament()
-    # Controller.get_club_player()
-    # Controller.display_club_players()
-    # Controller.create_a_tournament()
-    # Controller.get_club_player()
-    # Controller.create_a_tournament()
-    # Controller.register_tournament_player()
-    # Controller.generate_report()
-    # Controller.create_a_tournament()
-    # Controller.delete_player("kkk")
-
-    # print(Controller.tournament_name_exist("Hay"))
-    # Controller.resume_tournament()
